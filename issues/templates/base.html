@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+    <head>
+
+        <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+        <title>Issues</title>
+    </head>
+    <body>
+        <div id="content" style="width:700px; margin:0 auto;">
+            <br>
+            {% block content %}
+            {% endblock %}
+            <hr>
+
+        </div>
+        <div id="footer" style="width:700px; margin:0 auto;">
+            <h5>
+                {% block footer %}
+                &copy; Copyright 2017 by vhdev.
+                {% endblock %}
+            </h5>
+        </div>
+    </body>
+</html>
