@@ -5,11 +5,11 @@ from models import Base, Project, Issue, User, Client, Comment
 def reset_db(engine):
     """drops tables and rebuild"""
     try:
-        Project.__table__.drop(engine)
         Issue.__table__.drop(engine)
         User.__table__.drop(engine)
         Client.__table__.drop(engine)
         Comment.__table__.drop(engine)
+        Project.__table__.drop(engine)
         print('Old tables removed')
     except:
         print('failed to remove old tables')
@@ -52,10 +52,6 @@ def get_project(session):
     projects = []
     for project in session.query(Project).order_by(Project.id):
         projects.append(project)
-    session.close()
-
-    for x in projects:
-        print(x)
 
     return projects
 
@@ -69,7 +65,6 @@ def post_project(session, **kwarg):
     # compare user column data to database columns
     for k, v in kwarg.items():
         if k in project_columns:
-            # if match append user data to approved query variable
             query[k] = v
         else:
             # Skip elements not in database column
@@ -84,7 +79,7 @@ def post_project(session, **kwarg):
     # create new collection and commit to database
     project = Project(
         name=query['name'], project_code=query['project_code'],
-        project_iter=query['project_iter'], issue_id=query['issue_id']
+        project_iter=query['project_iter']
     )
 
     session.add(project)
@@ -98,9 +93,9 @@ def patch_project(session, id):
     pass
 
 
-def delete_project(session, id):
+def delete_project(session, _id):
     try:
-        to_delete = session.query(Project).get(id)
+        to_delete = session.query(Project).get(_id)
         if to_delete:
             session.delete(to_delete)
 
@@ -158,9 +153,12 @@ def post_issue(session, **kwarg):
     # TODO: Is there a better programmically to do the below? To remove
     # hardcodings
     issue = Issue(
-        name=query['name'], src=query['src'], issue_date=query['issue_date'],
-        issue_type=query['issue_type'], issue_data=query['issue_data']
+        group=query['group'], src=query['src'], issue_date=query['issue_date'],
+        issue_type=query['issue_type'], issue_data=query['issue_data'],
     )
+
+    append_to_project = session.query(Project).get(query['project_id'])
+    append_to_project.issues.append(issue)
 
     session.add(issue)
     session.commit()
@@ -169,23 +167,8 @@ def post_issue(session, **kwarg):
     return issue
 
 
-def patch_issue(session, id):
+def patch_issue(session, _id):
     pass
 
-
-def delete_issue(session, id):
-    try:
-        to_delete = session.query(Issue).get(id)
-        if to_delete:
-            session.delete(to_delete)
-
-            session.commit()
-            session.close()
-
-            return True
-
-        elif to_delete == None:
-            return None
-    except:
-        # TODO: Catch proper errors
-        return False
+def delete_issue():
+    pass

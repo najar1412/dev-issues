@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Date
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, func
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -13,17 +13,16 @@ class Project(Base):
     name = Column(String)
     project_code = Column(String)
     project_iter = Column(Integer)
-
-    issue_id = Column(Integer, ForeignKey('issue.id'))
+    archived = Column(Integer, default=0)
+    client = Column(String, default='test')
     # relational data
-    issue = relationship(
-        "Issue", back_populates="project", single_parent=True,
-        cascade="all, delete, delete-orphan"
+    issues = relationship(
+        "Issue", backref='project'
     )
 
     def __repr__(self):
-        return "<Project(id='%s', name='%s'" % (
-            self.id, self.name
+        return "<Project(id='%s', name='%s', client'%s'>" % (
+            self.id, self.name, self.client
         )
 
 
@@ -31,21 +30,19 @@ class Issue(Base):
     __tablename__ = 'issue'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    group = Column(String)
     src = Column(String)
-    issue_date = Column(Date)
+    issue_date = Column(DateTime, default=func.now())
     issue_type = Column(String)
     issue_data = Column(String)
+    issue_complete = Column(Integer, default=0)
 
     # relational data
-    project = relationship(
-        "Project", back_populates='issue',
-        cascade="all, delete, delete-orphan"
-    )
+    project_id = Column(Integer, ForeignKey('project.id'))
 
     def __repr__(self):
-        return "<Issue(id='%s', name='%s')>" % (
-            self.id, self.name
+        return "<Issue(id='%s', group='%s')>" % (
+            self.id, self.group
         )
 
 

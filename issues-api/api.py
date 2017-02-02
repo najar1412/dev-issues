@@ -35,6 +35,7 @@ engine = create_engine(
 # Init sessionmaker
 Session = sessionmaker(bind=engine)
 
+
 # TODO: Get the logic done for issue and project for PROTOTYPE
 @app.route('{}/'.format(BASEURL), methods=['GET'])
 def home():
@@ -114,11 +115,13 @@ def issue():
         for issue in issues:
             result.append({
                 'id': issue.id,
-                'name': issue.name,
+                'group': issue.group,
                 'src': issue.src,
                 'issue_date': issue.issue_date,
                 'issue_type': issue.issue_type,
-                'issue_data': issue.issue_data
+                'issue_data': issue.issue_data,
+                'project_id': issue.project_id,
+                'issue_complete': issue.issue_complete
             })
 
         # TODO: IMP getting of project
@@ -139,25 +142,13 @@ def patch_issue():
         ), 200
 
 
-@app.route('{}/issue/delete/<id>'.format(BASEURL), methods=['DELETE'])
-def delete_issue(id):
-    if request.method=='DELETE':
-        print(id)
-        # Init session
-        session = Session()
-
-        # TODO: Deleting issues is broken? asking for one arg
-        delete_issue(session, id)
-
-        # TODO: IMP deleting issues
-        return make_response(
-            jsonify({'DELETE issue': 'successful'})
-        ), 200
+# TODO: IMP issue delete via id
 
 
 @app.route('{}/project'.format(BASEURL), methods=['GET', 'POST'])
 def project():
     # TODO: If no args in request, post is still successful. fix it.
+    # TODO: Figure out how to add multiple issues to a project
     if request.method=='POST':
 
         query = {}
@@ -177,6 +168,8 @@ def project():
         ), 200
 
     elif request.method=='GET':
+        # TODO: project.issues should return something better rather than
+        # a string repr of the object itself.
         # Init session
         session = Session()
         projects = get_project(session)
@@ -196,14 +189,20 @@ def project():
         # TODO: refactor to function
         result = []
         for project in projects:
-            result.append({
-                'id': project.id,
-                'name': project.name,
-                'project_code': project.project_code,
-                'project_iter': project.project_iter,
-                'issue_id': project.issue_id
-            })
+            # print(project.issue)
+            result.append(
+                {
+                    'id': project.id,
+                    'name': project.name,
+                    'project_code': project.project_code,
+                    'project_iter': project.project_iter,
+                    'issues': str(project.issues),
+                    'archived': project.archived,
+                    'client': project.client
+                }
+            )
 
+        session.close()
         # TODO: IMP getting of project
         return make_response(
             jsonify(result)
@@ -222,11 +221,14 @@ def patch_project():
         ), 200
 
 
-@app.route('{}/project/delete'.format(BASEURL), methods=['DELETE'])
-def delete_project():
+@app.route('{}/project/delete/<int:_id>'.format(BASEURL), methods=['DELETE'])
+def delete_project(_id):
+    # TODO: Fix deleting
     if request.method=='DELETE':
         # Init session
-        # session = Session()
+        session = Session()
+
+        delete_project(session, _id)
 
         # TODO: IMP deleting project
         return make_response(
@@ -368,6 +370,7 @@ def delete_comment():
         return make_response(
             jsonify({'DELETE comment': 'successful'})
         ), 200
+
 
 
 # reset_db(engine)
