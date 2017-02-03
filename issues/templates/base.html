@@ -1,25 +1,73 @@
 <!doctype html>
 <html>
     <head>
-
-        <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <title>Issues</title>
     </head>
     <body>
-        <div id="content" style="width:700px; margin:0 auto;">
-            <br>
+        <div id="site_header">
+            <div id="menu">
+                <div id="menucontent">
+                    <div class="menuitem">
+                        <div class="menutext">
+                            [menu #1]
+                        </div>
+                    </div>
+                    <div class="menuitem">
+                        <div class="menutext">
+                            [menu #2]
+                        </div>
+                    </div>
+                    <div class="menuitem">
+                        <div class="menutext">
+                            [menu #3]
+                        </div>
+                    </div>
+                    <div class="menuitem">
+                        <div class="menutext">
+                            [menu #4]
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="searchboxdetail"></div>
+                <div id="searchboxcontent">
+                    <div class="form-group has-feedback has-feedback" style="padding:0;height:0;">
+                        <form role="form">
+                            <input type="text" class="form-control input-sm" placeholder="Search..." style="border:none;box-shadow: none;outline:none;"/>
+                            <i class="form-control-feedback glyphicon glyphicon-search"></i>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="content">
             {% block content %}
             {% endblock %}
-            <hr>
+        </div>
 
-        </div>
-        <div id="footer" style="width:700px; margin:0 auto;">
-            <h5>
-                {% block footer %}
-                &copy; Copyright 2017 by vhdev.
-                {% endblock %}
-            </h5>
-        </div>
+        <footer style="text-align: center;color:lightgrey;height:300px;background-color:#eaeaea;">
+
+            <div id="footerboxdetail"></div>
+
+            <div style="width:33%;display:inline-block;padding-top:1cm;color:#ef697e;">
+                Bla
+            </div>
+            <div style="width:33%;display:inline-block;padding-top:1cm;color:#ef697e;">
+                Bla
+            </div>
+            <div style="width:33%;display:inline-block;padding-top:1cm;color:#ef697e;">
+                Bla
+            </div>
+
+        </footer>
+
+
+
     </body>
 </html>
