@@ -5,6 +5,19 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <title>Issues</title>
+
+        <style>
+a:link, a:visited {
+    text-decoration: none;
+    display: inline-block;
+    color:black;
+}
+a:active {
+    text-decoration: none;
+    display: inline-block;
+    color:white;
+}
+</style>
     </head>
     <body>
         <div id="site_header">
@@ -13,31 +26,34 @@
               workaround is having '<div class="menuitem"> on the same line as
               the previous '</div>' -->
                 <div id="menucontent">
+
+                  <a href="#">
                     <div class="menuitem">
                         <div class="menutext">
                             [menu #1]
                         </div>
-                    </div><div class="menuitem">
+                    </div></a><a href="#"><div class="menuitem">
                         <div class="menutext">
                             [menu #2]
                         </div>
-                    </div><div class="menuitem">
+                    </div></a><a href="#"><div class="menuitem">
                         <div class="menutext">
                             [menu #3]
                         </div>
-                    </div><div class="menuitem">
+                    </div></a><a href="#"><div class="menuitem">
                         <div class="menutext">
                             [menu #4]
                         </div>
-                    </div>
+                    </div></a>
+
                 </div>
 
 
                 <div id="searchboxdetail"></div>
                 <div id="searchboxcontent">
-                    <div class="form-group has-feedback has-feedback" style="padding:0;height:0;">
+                    <div class="form-group has-feedback has-feedback" style="padding:0;height:0;box-shadow: 1px 1px 5px rgba(0,0,0,0.1);">
                         <form role="form">
-                            <input type="text" class="form-control input-lg" placeholder="Search..." style="border:none;box-shadow: none;outline:none;color:#ff5d72"/>
+                            <input type="text" class="form-control input-lg" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.1);border:none;box-shadow: none;outline:none;color:#ff5d72"/>
                             <i class="form-control-feedback glyphicon glyphicon-search"></i>
                         </form>
                     </div>

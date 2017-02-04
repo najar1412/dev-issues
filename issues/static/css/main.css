@@ -1,6 +1,9 @@
 body {
     background-color: #dfe4ea;
 }
+.menutext a:active {
+  text-decoration: none;
+}
 #site_header {
     width:700px;
     height:100%;
@@ -42,6 +45,15 @@ body {
     border-right: 1px solid #dedede;
     border-bottom: 1px solid #dedede;
     border-left: 1px solid #dedede;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+}
+.menuitem:active {
+    background: #ff5d72;
+    border-top: 5px solid #ff5d72;
+    border-right: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+    border-left: 1px solid #dedede;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
 }
 .menutext {
     color:#000;
