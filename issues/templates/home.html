@@ -1,93 +1,97 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class=issuebox>
-    <div class=issueboxdetail></div>
-        <div class=issueboxhead>
-            <h4>issue #[id]</h4>
-        </div>
-    <div class=issueboxcontent>
-        group, src, issue_date,
 
-        [issue_data - [more...]]
-        <hr>
-        <small>[project_id - name and code]
-        [issue_date]</small>
-    </div>
-    <div class=issueboxfooter>
-        [i:issue_type] | [Sign Off]
-    </div>
+<h3 style="padding:0;margin:0;"> New Issue </h3>
+<br>
+<form>
+
+  <div class="form-inline">
+    <div>
+      <div id=left style="float:left;width:33.3%;text-align:left;">
+        <label for="exampleInputEmail1">*project_id</label>
+      </div>
+      <div id=middle style="float:left;width:33.3%;text-align:center;">
+          <label for="exampleInputEmail2">Type</label>
+      </div>
+      <div id=right style="float:left;width:33.3%;text-align:right;">
+          <label for="exampleInputEmail2">Source</label>
+      </div>
+  </div>
+    <div style="clear:both;">
+      <div id=left style="float:left;width:33.3%;text-align:left;">
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+  <div id=middle style="float:left;width:33.3%;text-align:center;">
+    <input type="text" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp">
+  </div>
+    <div id=right style="float:left;width:33.3%;text-align:right;">
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+    <small id="emailHelp" class="form-text text-muted">Project name, code and iteration</small>
+</div>
+</div>
+<br>
+<div class="form-group">
+  <label for="exampleTextarea">*Issue</label>
+  <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
 </div>
 
-<div class=issuebox >
-    <div class=issueboxdetail></div>
-    <div class=issueboxhead>
-        <h4>project #001</h4>
-    </div>
-    <div class=issueboxcontent>
-        content, content, content, content, content, content, content, content, content, content,
-        content, content, content, content, content, content, content, content, content, content.
-    </div>
-    <div class=issueboxfooter>
-        <small>Footer</small>
-    </div>
-</div>
+<div class="form-group">
+    <label for="exampleInputFile">Additional attachments</label>
+    <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+    <small id="fileHelp" class="form-text text-muted">*Not required.</small>
+  </div>
 
-<div class=issuebox>
-    <div class=issueboxdetail></div>
-    <div class=issueboxhead>
-        <h4>client #001</h4>
-    </div>
-    <div class=issueboxcontent>
-        content, content, content, content, content, content, content, content, content, content,
-        content, content, content, content, content, content, content, content, content, content.
-    </div>
-    <div class=issueboxfooter>
-        <small>Footer</small>
-    </div>
-</div>
+  <br>
+  <button type="submit" class="btn btn-primary">Submit</button>
 
-<div class=issuebox>
-    <div class=issueboxdetail></div>
-        <div class=issueboxhead>
-            <h4>user #001</h4>
-        </div>
-    <div class=issueboxcontent>
-        content, content, content, content, content, content, content, content, content, content,
-        content, content, content, content, content, content, content, content, content, content.
-    </div>
-    <div class=issueboxfooter>
-        <small>Footer</small>
-    </div>
-</div>
 
-<div class=issuebox >
-    <div class=issueboxdetail></div>
-    <div class=issueboxhead>
-        <h4>comment #001</h4>
-    </div>
-    <div class=issueboxcontent>
-        content, content, content, content, content, content, content, content, content, content,
-        content, content, content, content, content, content, content, content, content, content.
-    </div>
-    <div class=issueboxfooter>
-        <small>Footer</small>
-    </div>
-</div>
+</form>
 
-<div class=issuebox>
-    <div class=issueboxdetail></div>
-    <div class=issueboxhead>
-        <h4>example #1</h4>
-    </div>
-    <div class=issueboxcontent>
-        content, content, content, content, content, content, content, content, content, content,
-        content, content, content, content, content, content, content, content, content, content.
-    </div>
-    <div class=issueboxfooter>
-        <small>Footer</small>
-    </div>
+
+<hr>
+
+<h3 style="padding:0;margin:0;"> New Project </h3>
+<br>
+<form>
+
+  <div class="form-inline">
+    <div>
+      <div id=left style="float:left;width:33.3%;text-align:left;">
+        <label for="exampleInputEmail1">Name</label>
+      </div>
+      <div id=middle style="float:left;width:33.3%;text-align:center;">
+          <label for="exampleInputEmail2">Code</label>
+      </div>
+      <div id=right style="float:left;width:33.3%;text-align:right;">
+          <label for="exampleInputEmail2">Iteration</label>
+      </div>
+  </div>
+    <div style="clear:both;">
+      <div id=left style="float:left;width:33.3%;text-align:left;">
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+  <div id=middle style="float:left;width:33.3%;text-align:center;">
+    <input type="text" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp">
+  </div>
+    <div id=right style="float:left;width:33.3%;text-align:right;">
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+    <small id="emailHelp" class="form-text text-muted">Project name, code and iteration</small>
 </div>
+</div>
+  <br>
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+
+</form>
+
+
+
+
+
+
 
 
 {% endblock %}

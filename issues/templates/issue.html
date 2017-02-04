@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<h3 style="padding:0;margin:0;"> Latest Issues </h3>
+<hr>
+
+{{ issue }}
+
+<hr>
+
+<div class=issuebox>
+    <div class=issueboxdetail></div>
+        <div class=issueboxhead>
+            <h4>issue #[id]</h4>
+        </div>
+    <div class=issueboxcontent>
+        group, src, issue_date,
+
+        [issue_data - [more...]]
+        <hr>
+        <small>[project_id - name and code]
+        [issue_date]</small>
+    </div>
+    <div class=issueboxfooter>
+        [i:issue_type] | [Sign Off]
+    </div>
+</div>
+
+<div class=issuebox >
+    <div class=issueboxdetail></div>
+    <div class=issueboxhead>
+        <h4>project #001</h4>
+    </div>
+    <div class=issueboxcontent>
+        content, content, content, content, content, content, content, content, content, content,
+        content, content, content, content, content, content, content, content, content, content.
+    </div>
+    <div class=issueboxfooter>
+        <small>Footer</small>
+    </div>
+</div>
+
+<div class=issuebox>
+    <div class=issueboxdetail></div>
+    <div class=issueboxhead>
+        <h4>client #001</h4>
+    </div>
+    <div class=issueboxcontent>
+        content, content, content, content, content, content, content, content, content, content,
+        content, content, content, content, content, content, content, content, content, content.
+    </div>
+    <div class=issueboxfooter>
+        <small>Footer</small>
+    </div>
+</div>
+
+<div class=issuebox>
+    <div class=issueboxdetail></div>
+        <div class=issueboxhead>
+            <h4>user #001</h4>
+        </div>
+    <div class=issueboxcontent>
+        content, content, content, content, content, content, content, content, content, content,
+        content, content, content, content, content, content, content, content, content, content.
+    </div>
+    <div class=issueboxfooter>
+        <small>Footer</small>
+    </div>
+</div>
+
+<div class=issuebox >
+    <div class=issueboxdetail></div>
+    <div class=issueboxhead>
+        <h4>comment #001</h4>
+    </div>
+    <div class=issueboxcontent>
+        content, content, content, content, content, content, content, content, content, content,
+        content, content, content, content, content, content, content, content, content, content.
+    </div>
+    <div class=issueboxfooter>
+        <small>Footer</small>
+    </div>
+</div>
+
+<div class=issuebox>
+    <div class=issueboxdetail></div>
+    <div class=issueboxhead>
+        <h4>example #1</h4>
+    </div>
+    <div class=issueboxcontent>
+        content, content, content, content, content, content, content, content, content, content,
+        content, content, content, content, content, content, content, content, content, content.
+    </div>
+    <div class=issueboxfooter>
+        <small>Footer</small>
+    </div>
+</div>
+
+{% endblock %}
