@@ -9,23 +9,23 @@
     <body>
         <div id="site_header">
             <div id="menu">
+              <!-- better way to remove whitespace between side divs? currently
+              workaround is having '<div class="menuitem"> on the same line as
+              the previous '</div>' -->
                 <div id="menucontent">
                     <div class="menuitem">
                         <div class="menutext">
                             [menu #1]
                         </div>
-                    </div>
-                    <div class="menuitem">
+                    </div><div class="menuitem">
                         <div class="menutext">
                             [menu #2]
                         </div>
-                    </div>
-                    <div class="menuitem">
+                    </div><div class="menuitem">
                         <div class="menutext">
                             [menu #3]
                         </div>
-                    </div>
-                    <div class="menuitem">
+                    </div><div class="menuitem">
                         <div class="menutext">
                             [menu #4]
                         </div>
@@ -37,7 +37,7 @@
                 <div id="searchboxcontent">
                     <div class="form-group has-feedback has-feedback" style="padding:0;height:0;">
                         <form role="form">
-                            <input type="text" class="form-control input-sm" placeholder="Search..." style="border:none;box-shadow: none;outline:none;"/>
+                            <input type="text" class="form-control input-lg" placeholder="Search..." style="border:none;box-shadow: none;outline:none;color:#ff5d72"/>
                             <i class="form-control-feedback glyphicon glyphicon-search"></i>
                         </form>
                     </div>
@@ -45,25 +45,21 @@
 
             </div>
         </div>
+        <p style="height:30px">
 
         <div id="content">
             {% block content %}
             {% endblock %}
         </div>
 
-        <footer style="text-align: center;color:lightgrey;height:300px;background-color:#eaeaea;">
+
+        <footer style="width:100%;text-align: center;color:lightgrey;background-color:rgba(255,255,255,0.3);position: absolute;bottom: 0;padding:0;">
 
             <div id="footerboxdetail"></div>
-
-            <div style="width:33%;display:inline-block;padding-top:1cm;color:#ef697e;">
-                Bla
-            </div>
-            <div style="width:33%;display:inline-block;padding-top:1cm;color:#ef697e;">
-                Bla
-            </div>
-            <div style="width:33%;display:inline-block;padding-top:1cm;color:#ef697e;">
-                Bla
-            </div>
+            <div style="padding-top:.5cm;">
+            <small>© Copyright 2017, vhdev</small>
+          </div>
+            <p style="height:.4cm;">
 
         </footer>
 

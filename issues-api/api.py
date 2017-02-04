@@ -23,6 +23,8 @@ ALTER ROLE vhrender SET timezone TO 'UTC';
 GRANT ALL PRIVILEGES ON DATABASE issues TO vhrender;
 """
 
+# TODO: get flask to check if database exists etc - on start up.
+
 BASEURL = '/issues/api'
 
 # Int sqlalchemy engine
