@@ -116,7 +116,22 @@ def get_issue_by_project(session, id):
 
 
 def get_issue_by_id(session, id):
-    pass
+    issue = session.query(Issue).get(id)
+
+    issue_columns = Issue.__table__.columns.keys()
+
+    result = {}
+    # TODO: Make better.
+    result[issue_columns[0]] = issue.id
+    result[issue_columns[1]] = issue.group
+    result[issue_columns[2]] = issue.src
+    result[issue_columns[3]] = issue.issue_date
+    result[issue_columns[4]] = issue.issue_type
+    result[issue_columns[5]] = issue.issue_data
+    result[issue_columns[6]] = issue.issue_complete
+    result[issue_columns[7]] = issue.project_id
+
+    return result
 
 def get_issue(session):
     """Returns all issue objects"""

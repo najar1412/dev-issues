@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 import config.cred as cred
 from apifunc import (
     reset_db, get_project_by_id, get_project, post_project, post_issue,
-    get_issue, delete_project, delete_issue
+    get_issue, delete_project, delete_issue, get_issue_by_id
 )
 
 
@@ -130,6 +130,17 @@ def issue():
         return make_response(
             jsonify(result)
         ), 200
+
+@app.route('{}/issue/<int:id>'.format(BASEURL), methods=['GET'])
+def issue_by_id(id):
+
+    # init session
+    session = Session()
+    issue = get_issue_by_id(session, id)
+
+    return make_response(
+        jsonify(issue)
+    ), 200
 
 
 @app.route('{}/issue/patch'.format(BASEURL), methods=['PATCH'])

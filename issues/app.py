@@ -25,5 +25,24 @@ def issue():
 
     return render_template('issue.html', issue=r.json())
 
+
+@app.route('/query', methods=['POST'])
+def query():
+    # TODO: Figure out how to search multiple tables?
+    if request.method == 'POST':
+        query = request.form['query']
+        if query.isdigit():
+            # if digital search table id's.
+            r = requests.get('{}/issue/{}'.format(BASEURL, query))
+            return render_template(
+                'query.html', query=query, issue=r.json()
+            )
+        else:
+            pass
+
+
+    return render_template('query.html', query=query)
+
+
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

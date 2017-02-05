@@ -52,10 +52,12 @@ a:active {
                 <div id="searchboxdetail"></div>
                 <div id="searchboxcontent">
                     <div class="form-group has-feedback has-feedback" style="padding:0;height:0;box-shadow: 1px 1px 5px rgba(0,0,0,0.1);">
-                        <form role="form">
-                            <input type="text" class="form-control input-lg" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.1);border:none;box-shadow: none;outline:none;color:#ff5d72"/>
+
+                        <form action="{{ url_for('query') }}" method=post>
+                            <input type="text" class="form-control input-lg" name='query' style="box-shadow: 1px 1px 5px rgba(0,0,0,0.1);border:none;box-shadow: none;outline:none;color:#ff5d72"/>
                             <i class="form-control-feedback glyphicon glyphicon-search"></i>
                         </form>
+                        
                     </div>
                 </div>
 
