@@ -44,6 +44,21 @@ def get_issue():
     return render_template('issue.html', issue=r.json())
 
 
+@app.route('/new_issue', methods=['POST'])
+def new_issue():
+    print('fuck')
+    if request.method == 'POST':
+        print('fuck1')
+        name = request.form['weak']
+
+
+        print(name)
+
+    # r = requests.get('{}/issue/{}'.format(BASEURL, issue_id))
+
+    return render_template('issue.html')
+
+
 
 @app.route('/query', methods=['POST'])
 def query():

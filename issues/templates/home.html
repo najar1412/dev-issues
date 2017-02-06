@@ -4,18 +4,18 @@
 
 <h3 style="padding:0;margin:0;"> New Issue </h3>
 <br>
-<form>
 
+<form action="/new_issue" method="post">
   <div class="form-inline">
     <div>
       <div id=left style="float:left;width:33.3%;text-align:left;">
-        <label for="exampleInputEmail1">*project_id</label>
+        <label for="project_id">*project_id</label>
       </div>
       <div id=middle style="float:left;width:33.3%;text-align:center;">
-          <label for="exampleInputEmail2">Type</label>
+          <label for="issue_type">Type</label>
       </div>
       <div id=right style="float:left;width:33.3%;text-align:right;">
-          <label for="exampleInputEmail2">Source</label>
+          <label for="issue_src">Source</label>
       </div>
   </div>
     <div style="clear:both;">
@@ -23,7 +23,7 @@
     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
   </div>
   <div id=middle style="float:left;width:33.3%;text-align:center;">
-    <input type="text" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp">
+    <input type="text" class="form-control" id="exampleInputEmail2" name='weak' aria-describedby="emailHelp">
   </div>
     <div id=right style="float:left;width:33.3%;text-align:right;">
     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -42,13 +42,9 @@
     <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
     <small id="fileHelp" class="form-text text-muted">*Not required.</small>
   </div>
-
   <br>
   <button type="submit" class="btn btn-primary">Submit</button>
-
-
 </form>
-
 
 <hr>
 
