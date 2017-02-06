@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<h3 style="padding:0;margin:0;"> Latest Issues </h3>
+<hr>
+
+{% for x in issue %}
+<div class=issuebox>
+    <div class=issueboxdetail></div>
+        <div class=issueboxhead>
+            <a href="{{ url_for('get_issue', id=x.id ) }}"><h4>Issue #{{ x.id }}</h4></a>
+        </div>
+    <div class=issueboxcontent>
+        {{ x.issue_data }}
+        <h6>
+            Project: <a href="{{ url_for('get_project', id=x.project_id ) }}">{{ x.project_id }}</a><br>
+            Issued: {{x.issue_date}}
+        </h6>
+    </div>
+    <div class=issueboxfooter>
+        {{x.src}} | {{x.issue_type}} | {{x.issue_complete}}
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

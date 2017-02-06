@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 style="padding:0;margin:0;"> Latest Projects </h3>
+
+<hr>
+
+{% for x in project %}
+<br>
+
+
+<div class=projectbox>
+    <div class=projectboxdetail></div>
+        <div class=projectboxhead>
+            <a href="{{ url_for('get_project', id=x.id ) }}"><h4>{{x.project_code}} - {{x.project_iter}} | {{x.name}}</h4></a>
+        </div>
+    <div class=projectboxcontent>
+        {{ x.issues }}
+    </div>
+    <div class=projectboxfooter>
+        ...
+    </div>
+</div>
+{% endfor %}
+
+
+
+
+{% endblock %}

@@ -1,10 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h6 style="padding:0;margin:0;color:grey;"> Results - [IMP: len()] </h6>
+<br>
 
-<h3 style="padding:0;margin:0;"> Results </h3>
+{% for x in issues %}
+<br>
 
-{{ query }}
+<div class=issuebox>
+    <div class=issueboxdetail></div>
+        <div class=issueboxhead>
+            <h4>Issue #{{ x.id }}</h4>
+        </div>
+    <div class=issueboxcontent>
+        {{ x.issue_data }}
+        <h6>
+            Project : <a href='#'>{{ x.project_id }}</a><br>
+            Issued: {{x.issue_date}}
+        </h6>
+    </div>
+    <div class=issueboxfooter>
+        {{x.src}} | {{x.issue_type}} | {{x.issue_complete}}
+    </div>
+</div>
+
+{% endfor %}
 
 <hr>
 

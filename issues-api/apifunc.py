@@ -26,25 +26,59 @@ def reset_db(engine):
 def get_project_by_id(session, id):
     # TODO: More programmical-magic, less hardcoding.
     """return project object by id"""
-    project_by_id = session.query(Project).get(id)
+    project = session.query(Project).get(id)
 
     project_columns = Project.__table__.columns.keys()
 
-    """
-    result = {
-        'id': patron_by_id.id, 'client': patron_by_id.client,
-        'contact': patron_by_id.contact, 'contactphone': patron_by_id.contactphone,
-        'contactemail': patron_by_id.contactemail, 'user': {}
-    }
+    result = []
+    # TODO: Make better.
+    try:
+        result.append(
+            {
+                project_columns[0]: project.id,
+                project_columns[1]: project.name,
+                project_columns[2]: project.project_code,
+                project_columns[3]: project.project_iter,
+                project_columns[4]: project.archived,
+                project_columns[5]: project.client
+            }
+        )
 
-    for i in patron_by_id.user:
-        result['user'][i.id] = {
-            'name': i.name, 'team': i.team
-        }
+    except:
+        return None
 
     return result
-    """
-    return None
+
+
+
+def get_issue_by_id(session, id):
+    issue = session.query(Issue).get(id)
+
+    issue_columns = Issue.__table__.columns.keys()
+
+    result = []
+    # TODO: Make better.
+    try:
+        result.append(
+            {
+                issue_columns[0]: issue.id,
+                issue_columns[1]: issue.group,
+                issue_columns[2]: issue.src,
+                issue_columns[3]: str(issue.issue_date)[:-10],
+                issue_columns[4]: issue.issue_type,
+                issue_columns[5]: issue.issue_data,
+                issue_columns[6]: issue.issue_complete,
+                issue_columns[7]: issue.project_id
+            }
+        )
+
+    except:
+        return None
+
+    return result
+
+
+
 
 
 def get_project(session):
@@ -120,16 +154,24 @@ def get_issue_by_id(session, id):
 
     issue_columns = Issue.__table__.columns.keys()
 
-    result = {}
+    result = []
     # TODO: Make better.
-    result[issue_columns[0]] = issue.id
-    result[issue_columns[1]] = issue.group
-    result[issue_columns[2]] = issue.src
-    result[issue_columns[3]] = issue.issue_date
-    result[issue_columns[4]] = issue.issue_type
-    result[issue_columns[5]] = issue.issue_data
-    result[issue_columns[6]] = issue.issue_complete
-    result[issue_columns[7]] = issue.project_id
+    try:
+        result.append(
+            {
+                issue_columns[0]: issue.id,
+                issue_columns[1]: issue.group,
+                issue_columns[2]: issue.src,
+                issue_columns[3]: str(issue.issue_date)[:-10],
+                issue_columns[4]: issue.issue_type,
+                issue_columns[5]: issue.issue_data,
+                issue_columns[6]: issue.issue_complete,
+                issue_columns[7]: issue.project_id
+            }
+        )
+
+    except:
+        return None
 
     return result
 

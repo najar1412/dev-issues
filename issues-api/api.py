@@ -221,6 +221,18 @@ def project():
             jsonify(result)
         ), 200
 
+@app.route('{}/project/<int:id>'.format(BASEURL), methods=['GET'])
+def project_by_id(id):
+
+    # init session
+    session = Session()
+    issue = get_project_by_id(session, id)
+
+    return make_response(
+        jsonify(issue)
+    ), 200
+
+
 
 @app.route('{}/project/patch'.format(BASEURL), methods=['PATCH'])
 def patch_project():
