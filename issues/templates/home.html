@@ -20,27 +20,27 @@
   </div>
     <div style="clear:both;">
       <div id=left style="float:left;width:33.3%;text-align:left;">
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <input type="text" class="form-control" id="project_id" name='project_id' aria-describedby="emailHelp">
   </div>
   <div id=middle style="float:left;width:33.3%;text-align:center;">
-    <input type="text" class="form-control" id="exampleInputEmail2" name='weak' aria-describedby="emailHelp">
+    <input type="text" class="form-control" id="issue_type" name='issue_type'>
   </div>
     <div id=right style="float:left;width:33.3%;text-align:right;">
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <input type="text" class="form-control" id="issue_src" name="issue_src">
   </div>
     <small id="emailHelp" class="form-text text-muted">Project name, code and iteration</small>
 </div>
 </div>
 <br>
 <div class="form-group">
-  <label for="exampleTextarea">*Issue</label>
-  <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+  <label for="issue_content">*Issue</label>
+  <textarea class="form-control" id="issue_content" rows="3" name="issue_content"></textarea>
 </div>
 
 <div class="form-group">
-    <label for="exampleInputFile">Additional attachments</label>
-    <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-    <small id="fileHelp" class="form-text text-muted">*Not required.</small>
+    <label for="issue_attached">Additional attachments</label>
+    <input type="file" class="form-control-file" name="issue_attached" id="issue_attached" aria-describedby="issue_attached">
+    <small id="issue_attached" class="form-text text-muted">*Not required.</small>
   </div>
   <br>
   <button type="submit" class="btn btn-primary">Submit</button>

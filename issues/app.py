@@ -46,13 +46,24 @@ def get_issue():
 
 @app.route('/new_issue', methods=['POST'])
 def new_issue():
+    # TODO: Finish form/view
     print('fuck')
     if request.method == 'POST':
-        print('fuck1')
-        name = request.form['weak']
+        # project_id = request.form['project_id']
+        issue_type = request.form['issue_type']
+        issue_src = request.form['issue_src']
+        issue_content = request.form['issue_content']
+        issue_attached = request.form['issue_attached']
 
+        new_issue = {
+            'project_id': 'project_id',
+            'issue_type': issue_type,
+            'issue_src': issue_src,
+            'issue_content': issue_content,
+            'issue_attached': issue_attached,
+        }
 
-        print(name)
+        print(new_issue)
 
     # r = requests.get('{}/issue/{}'.format(BASEURL, issue_id))
 
