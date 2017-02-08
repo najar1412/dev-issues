@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-
 <h3 style="padding:0;margin:0;"> New Issue </h3>
 <br>
 
@@ -9,7 +8,7 @@
   <div class="form-inline">
     <div>
       <div id=left style="float:left;width:33.3%;text-align:left;">
-        <label for="project_id">*project_id</label>
+        <label for="project_id">Project_id</label>
       </div>
       <div id=middle style="float:left;width:33.3%;text-align:center;">
           <label for="issue_type">Type</label>
@@ -20,7 +19,15 @@
   </div>
     <div style="clear:both;">
       <div id=left style="float:left;width:33.3%;text-align:left;">
-    <input type="text" class="form-control" id="project_id" name='project_id' aria-describedby="emailHelp">
+
+        <select class="form-control" id="project_id" name='project_id' aria-describedby="emailHelp" style="width:100%;">
+
+            {% for x in projects.items() %}
+                <option value="{{x.0}}">{{x.1}}</option>
+            {% endfor %}
+
+        </select>
+
   </div>
   <div id=middle style="float:left;width:33.3%;text-align:center;">
     <input type="text" class="form-control" id="issue_type" name='issue_type'>
@@ -50,29 +57,28 @@
 
 <h3 style="padding:0;margin:0;"> New Project </h3>
 <br>
-<form>
-
+<form action="/new_project" method="post">
   <div class="form-inline">
     <div>
       <div id=left style="float:left;width:33.3%;text-align:left;">
-        <label for="exampleInputEmail1">Name</label>
+        <label for="name">Name</label>
       </div>
       <div id=middle style="float:left;width:33.3%;text-align:center;">
-          <label for="exampleInputEmail2">Code</label>
+          <label for="project_code">Code</label>
       </div>
       <div id=right style="float:left;width:33.3%;text-align:right;">
-          <label for="exampleInputEmail2">Iteration</label>
+          <label for="project_iter">Iteration</label>
       </div>
   </div>
     <div style="clear:both;">
       <div id=left style="float:left;width:33.3%;text-align:left;">
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <input type="text" class="form-control" name=name id="name" aria-describedby="emailHelp">
   </div>
   <div id=middle style="float:left;width:33.3%;text-align:center;">
-    <input type="text" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp">
+    <input type="text" class="form-control" name=project_code id="project_code">
   </div>
     <div id=right style="float:left;width:33.3%;text-align:right;">
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <input type="text" class="form-control" name=project_iter id="project_iter">
   </div>
     <small id="emailHelp" class="form-text text-muted">Project name, code and iteration</small>
 </div>

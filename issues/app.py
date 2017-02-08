@@ -7,7 +7,14 @@ BASEURL = 'http://127.0.0.1:5050/issues/api'
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('home.html')
+    r = requests.get('{}/project'.format(BASEURL))
+    projects = {}
+    for project in r.json():
+        projects[project['id']] = '{}-{} | {}'.format(
+            project['project_code'], project['project_iter'], project['name']
+        )
+
+    return render_template('home.html', projects=projects)
 
 
 @app.route('/projects', methods=['GET'])
@@ -47,27 +54,55 @@ def get_issue():
 @app.route('/new_issue', methods=['POST'])
 def new_issue():
     # TODO: Finish form/view
-    print('fuck')
     if request.method == 'POST':
-        # project_id = request.form['project_id']
+        project_id = request.form['project_id']
         issue_type = request.form['issue_type']
         issue_src = request.form['issue_src']
         issue_content = request.form['issue_content']
         issue_attached = request.form['issue_attached']
 
-        new_issue = {
-            'project_id': 'project_id',
+        issue = {
+            'project_id': int(project_id),
             'issue_type': issue_type,
             'issue_src': issue_src,
             'issue_content': issue_content,
             'issue_attached': issue_attached,
         }
 
-        print(new_issue)
+    r = requests.post(
+        '{}/issue?project_id={}&issue_type={}&issue_src={}&issue_content={}&issue_attached={}'.format(
+            BASEURL, issue['project_id'], issue['issue_type'],
+            issue['issue_src'], issue['issue_content'], issue['issue_content']
+        )
+    )
 
-    # r = requests.get('{}/issue/{}'.format(BASEURL, issue_id))
+    return render_template('issue.html', issue=issue)
 
-    return render_template('issue.html')
+
+@app.route('/new_project', methods=['POST'])
+def new_project():
+    # TODO: Finish form/view
+    if request.method == 'POST':
+
+
+        name = request.form['name']
+        project_code = request.form['project_code']
+        project_iter = request.form['project_iter']
+
+        project = {
+            'name': name,
+            'project_code': project_code,
+            'project_iter': project_iter,
+        }
+
+        r = requests.post(
+            '{}/project?name={}&project_code={}&project_iter={}'.format(
+                BASEURL, project['name'], project['project_code'],
+                project['project_iter']
+            )
+        )
+
+        return render_template('project.html', project=project)
 
 
 
