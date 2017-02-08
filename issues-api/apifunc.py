@@ -25,8 +25,13 @@ def reset_db(engine):
 # Public functions
 def get_project_by_id(session, id):
     # TODO: More programmical-magic, less hardcoding.
+    # TODO: Datetime formatting, (currently using slicing)
     """return project object by id"""
     project = session.query(Project).get(id)
+    p_issues = [str(x) for x in project.issues]
+    bla = {}
+    for issue in project.issues:
+        bla[issue.id] = [str(issue.issue_date)[:-10], issue.issue_complete]
 
     project_columns = Project.__table__.columns.keys()
 
@@ -40,7 +45,8 @@ def get_project_by_id(session, id):
                 project_columns[2]: project.project_code,
                 project_columns[3]: project.project_iter,
                 project_columns[4]: project.archived,
-                project_columns[5]: project.client
+                project_columns[5]: project.client,
+                'issues': bla
             }
         )
 
@@ -118,7 +124,6 @@ def post_project(session, **kwarg):
 
     session.add(project)
     session.commit()
-    session.close()
 
     return project
 

@@ -1,9 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
+<div class=projectbox>
+    <div class=projectboxdetail></div>
+        <div class=projectboxhead>
+            <h4 style="padding-bottom:0px;margin-bottom:0px;">{{project.0.project_code}} - {{project.0.project_iter}} | {{project.0.name}}</h4>
+            <small><a href="#">Edit</a> | <a href="#">Archive</a></small>
+        </div>
+    <div class=projectboxcontent>
+        Client: {{project.0.client}} <br>
+        Project Lead: [IMP] <br>
+        Open Issues:
+        {% for issue in project.0.issues.items() %}
+        {% if issue.1.1 == 0 %}
+        <a href="{{ url_for('get_issue', id=issue.0 ) }}">{{issue.0}}</a>,
+        {% endif %}
+        {% endfor %}
+        <br>
+        Closed Issues:
+        {% for issue in project.0.issues.items() %}
+        {% if issue.1.1 == 1 %}
+        <a href="{{ url_for('get_issue', id=issue.0 ) }}">{{issue.0}}</a>,
+        {% endif %}
+        {% endfor %}
 
-project<br>
-<br>
-
-{{project}}
+    </div>
+    <div class=projectboxfooter>
+        ...
+    </div>
+</div>
 
 {% endblock %}

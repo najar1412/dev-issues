@@ -1,29 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h3 style="padding:0;margin:0;"> Latest Projects </h3>
 
-<hr>
+<h3 style="padding:0;margin:0;"> New Project </h3>
+<br>
 
-{% for x in project %}
+<form action="/new_project" method="post">
+  <div class="form-inline">
+    <div>
+      <div id=left style="float:left;width:33.3%;text-align:left;">
+        <label for="name">Name</label>
+      </div>
+      <div id=middle style="float:left;width:33.3%;text-align:center;">
+          <label for="project_code">Code</label>
+      </div>
+      <div id=right style="float:left;width:33.3%;text-align:right;">
+          <label for="project_iter">Iteration</label>
+      </div>
+  </div>
+    <div style="clear:both;">
+      <div id=left style="float:left;width:33.3%;text-align:left;">
+    <input type="text" class="form-control" name=name id="name" aria-describedby="emailHelp">
+  </div>
+  <div id=middle style="float:left;width:33.3%;text-align:center;">
+    <input type="text" class="form-control" name=project_code id="project_code">
+  </div>
+    <div id=right style="float:left;width:33.3%;text-align:right;">
+    <input type="text" class="form-control" name=project_iter id="project_iter">
+  </div>
+    <small id="emailHelp" class="form-text text-muted">Project name, code and iteration</small>
+</div>
+</div>
+  <br>
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+
+</form>
 <br>
 
 
+<h3 style="padding:0;margin:0;">Current Projects</h3>
+<hr>
+{% for x in project %}
 <div class=projectbox>
     <div class=projectboxdetail></div>
         <div class=projectboxhead>
-            <a href="{{ url_for('get_project', id=x.id ) }}"><h4>{{x.project_code}} - {{x.project_iter}} | {{x.name}}</h4></a>
+            <a href="{{ url_for('get_project', id=x.id ) }}"><h4>{{x.project_code}}-{{x.project_iter}} | {{x.name}}</h4></a>
         </div>
-    <div class=projectboxcontent>
-        {{ x.issues }}
-    </div>
-    <div class=projectboxfooter>
-        ...
-    </div>
 </div>
 {% endfor %}
-
-
-
+<br>
+<br>
+<h3 style="padding:0;margin:0;">Recently Archived</h3>
+<hr>
+[IMP]
 
 {% endblock %}

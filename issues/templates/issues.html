@@ -15,11 +15,17 @@
         {{ x.issue_data }}
         <h6>
             Project: <a href="{{ url_for('get_project', id=x.project_id ) }}">{{ x.project_id }}</a><br>
-            Issued: {{x.issue_date}}
+            Issued: {{x.issue_date}}<br>
+            Source: {{x.src}}<br>
+            Type: {{x.issue_type}}<br>
         </h6>
     </div>
     <div class=issueboxfooter>
-        {{x.src}} | {{x.issue_type}} | {{x.issue_complete}}
+        {% if x.issue_complete == 1 %}
+        Completed: <a href="#"><span class="glyphicon glyphicon-ok" style="color:green;" aria-hidden="true"></span></a>
+        {% else %}
+        Completed: <a href="#"><span class="glyphicon glyphicon-remove" style="color:red;" aria-hidden="true"></span></a>
+        {% endif %}
     </div>
 </div>
 {% endfor %}

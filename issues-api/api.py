@@ -175,9 +175,16 @@ def project():
         data = query
         project = post_project(session, **data)
 
+        session.close()
+
         # TODO: IMP Posting of projects
         return make_response(
-            jsonify({'POST project': 'successful'})
+            jsonify(
+                {
+                    'POST project': 'successful',
+                    'id': project.id
+                }
+            )
         ), 200
 
     elif request.method=='GET':
@@ -202,7 +209,6 @@ def project():
         # TODO: refactor to function
         result = []
         for project in projects:
-            # print(project.issue)
             result.append(
                 {
                     'id': project.id,
@@ -226,10 +232,12 @@ def project_by_id(id):
 
     # init session
     session = Session()
-    issue = get_project_by_id(session, id)
+    project = get_project_by_id(session, id)
+
+    session.close()
 
     return make_response(
-        jsonify(issue)
+        jsonify(project)
     ), 200
 
 

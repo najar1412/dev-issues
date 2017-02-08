@@ -7,12 +7,17 @@ BASEURL = 'http://127.0.0.1:5050/issues/api'
 
 @app.route('/', methods=['GET'])
 def index():
+    # TODO: Error catch and return defrault page is database empy.
     r = requests.get('{}/project'.format(BASEURL))
     projects = {}
     for project in r.json():
-        projects[project['id']] = '{}-{} | {}'.format(
-            project['project_code'], project['project_iter'], project['name']
-        )
+        try:
+            projects[project['id']] = '{}-{} | {}'.format(
+                project['project_code'], project['project_iter'], project['name']
+            )
+        except:
+            projects = r.json()
+            return render_template('home.html', projects=projects)
 
     return render_template('home.html', projects=projects)
 
@@ -54,25 +59,28 @@ def get_issue():
 @app.route('/new_issue', methods=['POST'])
 def new_issue():
     # TODO: Finish form/view
+    # TODO: Figure how to access the response object From the api (race condition)
     if request.method == 'POST':
         project_id = request.form['project_id']
         issue_type = request.form['issue_type']
         issue_src = request.form['issue_src']
-        issue_content = request.form['issue_content']
+        issue_data = request.form['issue_data']
         issue_attached = request.form['issue_attached']
+
+        print(issue_data)
 
         issue = {
             'project_id': int(project_id),
             'issue_type': issue_type,
             'issue_src': issue_src,
-            'issue_content': issue_content,
+            'issue_data': issue_data,
             'issue_attached': issue_attached,
         }
 
     r = requests.post(
-        '{}/issue?project_id={}&issue_type={}&issue_src={}&issue_content={}&issue_attached={}'.format(
+        '{}/issue?project_id={}&issue_type={}&issue_src={}&issue_data={}&issue_attached={}'.format(
             BASEURL, issue['project_id'], issue['issue_type'],
-            issue['issue_src'], issue['issue_content'], issue['issue_content']
+            issue['issue_src'], issue['issue_data'], issue['issue_attached']
         )
     )
 
@@ -82,8 +90,8 @@ def new_issue():
 @app.route('/new_project', methods=['POST'])
 def new_project():
     # TODO: Finish form/view
+    # TODO: Figure how to access the response object From the api (race condition)
     if request.method == 'POST':
-
 
         name = request.form['name']
         project_code = request.form['project_code']
@@ -95,6 +103,7 @@ def new_project():
             'project_iter': project_iter,
         }
 
+        # Post new project
         r = requests.post(
             '{}/project?name={}&project_code={}&project_iter={}'.format(
                 BASEURL, project['name'], project['project_code'],
@@ -109,6 +118,7 @@ def new_project():
 @app.route('/query', methods=['POST'])
 def query():
     # TODO: Figure out how to search multiple tables?
+    # TODO: return page is nothing exists.
     if request.method == 'POST':
         query = request.form['query']
         if query.isdigit():

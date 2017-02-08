@@ -1,9 +1,34 @@
 {% extends "base.html" %}
 {% block content %}
+<div class=projectbox>
+    <div class=projectboxdetail></div>
+        <div class=projectboxhead>
+            <h4 style="padding-bottom:0px;margin-bottom:0px;">Issue #{{issue.0.id}}</h4>
+            <small><a href="#">Edit</a></small>
+        </div>
+    <div class=projectboxcontent>
+        Project: <a href="{{ url_for('get_project', id=issue.0.project_id ) }}">{{issue.0.project_id}}</a><br>
+        Group: {{issue.0.group}}<br>
+        Content: {{issue.0.issue_data}}<br>
+        Date: {{issue.0.issue_date}}<br>
+        Type: {{issue.0.issue_type}}<br>
+        Source: {{issue.0.src}}<br>
+        Project Lead: [IMP]<br>
+        {% if issue.0.issue_complete == 0 %}
+            Complete: No
+        {% else %}
+            Complete: Yes
+        {% endif %}
+    </div>
+    <div class=projectboxfooter>
 
-issue detail<br>
-<br>
-
-{{ issue }}
+        <a href="#">Download Attachments</a> |
+        {% if issue.0.issue_complete == 1 %}
+        Completed: <a href="#"><span class="glyphicon glyphicon-ok" style="color:green;" aria-hidden="true"></span></a>
+        {% else %}
+        Completed: <a href="#"><span class="glyphicon glyphicon-remove" style="color:red;" aria-hidden="true"></span></a>
+        {% endif %}
+    </div>
+</div>
 
 {% endblock %}
