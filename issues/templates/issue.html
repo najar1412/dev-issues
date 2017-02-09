@@ -4,15 +4,12 @@
     <div class=projectboxdetail></div>
         <div class=projectboxhead>
             <h4 style="padding-bottom:0px;margin-bottom:0px;">Issue #{{issue.0.id}}</h4>
-            <small><a href="#">Edit</a></small>
+            <small><a href="#">Edit</a> | <a href="#">Close Issue</a></small>
         </div>
     <div class=projectboxcontent>
         <h6 style="text-align:center;"> Project: <a href="{{ url_for('get_project', id=issue.0.project_id ) }}">{{issue.0.project_id}}</a> | Group: {{issue.0.group}} | Project Lead: [IMP]</h6>
         <hr style="margin:2px;">
-        <br>
         {{issue.0.issue_data}}
-        <br>
-        <br>
         <hr style="margin:2px;">
         <h6 style="text-align:center;padding:0px;margin:0px;"> Date: {{issue.0.issue_date}} | Type: {{issue.0.issue_type}} | Source: {{issue.0.src}}</h6>
     </div>

@@ -8,7 +8,7 @@
   <div class="form-inline">
     <div>
       <div id=left style="float:left;width:33.3%;text-align:left;">
-        <label for="project_id">Project_id</label>
+        <label for="project_id">Project</label>
       </div>
       <div id=middle style="float:left;width:33.3%;text-align:center;">
           <label for="issue_type">Type</label>
@@ -68,10 +68,9 @@ No issues in database.
         </div>
     <div class=issueboxcontent>
         {{ x.issue_data }}
+        <hr>
         <h6>
             Project: <a href="{{ url_for('get_project', id=x.project_id ) }}">{{ x.project_id }}</a><br>
-            Issued: {{x.issue_date}}<br>
-            Source: {{x.src}}<br>
             Type: {{x.issue_type}}<br>
         </h6>
     </div>

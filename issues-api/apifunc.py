@@ -116,7 +116,7 @@ def post_project(session, **kwarg):
         if column not in kwarg and column != 'id':
             query[column] = None
 
-    # create new collection and commit to database
+    # create new project and commit to database
     project = Project(
         name=query['name'], project_code=query['project_code'],
         project_iter=query['project_iter']
@@ -125,7 +125,16 @@ def post_project(session, **kwarg):
     session.add(project)
     session.commit()
 
-    return project
+    test = {
+        'id': project.id,
+        'name': project.name,
+        'project_code': project.project_code,
+        'project_iter': project.project_iter
+    }
+
+    session.close()
+
+    return test
 
 
 def patch_project(session, id):
@@ -224,9 +233,14 @@ def post_issue(session, **kwarg):
 
     session.add(issue)
     session.commit()
+
+    test = {
+        'id': issue.id
+    }
+
     session.close()
 
-    return issue
+    return test
 
 
 def patch_issue(session, _id):

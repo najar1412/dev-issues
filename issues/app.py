@@ -94,8 +94,6 @@ def new_issue():
         issue_data = request.form['issue_data']
         issue_attached = request.form['issue_attached']
 
-        print(issue_data)
-
         issue = {
             'project_id': int(project_id),
             'issue_type': issue_type,
@@ -111,7 +109,14 @@ def new_issue():
         )
     )
 
-    return render_template('issue.html', issue=issue)
+    # get newly posted project
+    # TODO: remove second request. Instead have api serve all information
+    # of new post.
+    issue_id = r.json()['id']
+
+    g = requests.get('{}/issue/{}'.format(BASEURL, issue_id))
+
+    return render_template('issue.html', issue=g.json())
 
 
 @app.route('/new_project', methods=['POST'])
@@ -124,7 +129,7 @@ def new_project():
         project_code = request.form['project_code']
         project_iter = request.form['project_iter']
 
-        project = {
+        params = {
             'name': name,
             'project_code': project_code,
             'project_iter': project_iter,
@@ -132,17 +137,17 @@ def new_project():
 
         # Post new project
         r = requests.post(
-            '{}/project?name={}&project_code={}&project_iter={}'.format(
-                BASEURL, project['name'], project['project_code'],
-                project['project_iter']
-            )
+            '{}/project'.format(BASEURL), params=params
         )
 
-        for x in r.json():
-            print(x)
+        # get newly posted project
+        # TODO: remove second request. Instead have api serve all information
+        # of new post.
+        project_id = r.json()['id']
 
-        return render_template('project.html', project=project)
+        g = requests.get('{}/project/{}'.format(BASEURL, project_id))
 
+        return render_template('project.html', project=g.json())
 
 
 @app.route('/query', methods=['POST'])

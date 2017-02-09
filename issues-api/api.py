@@ -92,7 +92,12 @@ def issue():
 
         # TODO: IMP Posting of issues
         return make_response(
-            jsonify({'POST issues': 'successful'})
+            jsonify(
+                {
+                    'POST issue': 'successful',
+                    'id': 'post_issue.id'
+                }
+            )
         ), 200
 
     elif request.method=='GET':
@@ -130,6 +135,7 @@ def issue():
         return make_response(
             jsonify(result)
         ), 200
+
 
 @app.route('{}/issue/<int:id>'.format(BASEURL), methods=['GET'])
 def issue_by_id(id):
@@ -175,14 +181,12 @@ def project():
         data = query
         project = post_project(session, **data)
 
-        session.close()
-
         # TODO: IMP Posting of projects
         return make_response(
             jsonify(
                 {
                     'POST project': 'successful',
-                    'id': project.id
+                    'id': project['id']
                 }
             )
         ), 200

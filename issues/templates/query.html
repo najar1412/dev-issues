@@ -10,7 +10,7 @@
 <div class=issuebox>
     <div class=issueboxdetail></div>
         <div class=issueboxhead>
-            <h4>Issue #{{ x.id }}</h4>
+            <h4><a href="{{ url_for('get_issue', id=x.id ) }}">Issue #{{ x.id }}</a></h4>
         </div>
     <div class=issueboxcontent>
         {{ x.issue_data }}
