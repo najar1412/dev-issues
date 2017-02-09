@@ -1,6 +1,61 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% if issue == 'false' %}
+No issues in database.
+{% else %}
+
+<h3 style="padding:0;margin:0;"> New Issue </h3>
+<br>
+
+<form action="/new_issue" method="post">
+  <div class="form-inline">
+    <div>
+      <div id=left style="float:left;width:33.3%;text-align:left;">
+        <label for="project_id">Project_id</label>
+      </div>
+      <div id=middle style="float:left;width:33.3%;text-align:center;">
+          <label for="issue_type">Type</label>
+      </div>
+      <div id=right style="float:left;width:33.3%;text-align:right;">
+          <label for="issue_src">Source</label>
+      </div>
+  </div>
+    <div style="clear:both;">
+      <div id=left style="float:left;width:33.3%;text-align:left;">
+
+        <select class="form-control" id="project_id" name='project_id' aria-describedby="emailHelp" style="width:100%;">
+
+            {% for x in projects.items() %}
+                <option value="{{x.0}}">{{x.1}}</option>
+            {% endfor %}
+
+        </select>
+
+  </div>
+  <div id=middle style="float:left;width:33.3%;text-align:center;">
+    <input type="text" class="form-control" id="issue_type" name='issue_type'>
+  </div>
+    <div id=right style="float:left;width:33.3%;text-align:right;">
+    <input type="text" class="form-control" id="issue_src" name="issue_src">
+  </div>
+    <small id="emailHelp" class="form-text text-muted">Project name, code and iteration</small>
+</div>
+</div>
+<br>
+<div class="form-group">
+  <label for="issue_data">*Issue</label>
+  <textarea class="form-control" id="issue_data" rows="3" name="issue_data"></textarea>
+</div>
+
+<div class="form-group">
+    <label for="issue_attached">Additional attachments</label>
+    <input type="file" class="form-control-file" name="issue_attached" id="issue_attached" aria-describedby="issue_attached">
+    <small id="issue_attached" class="form-text text-muted">*Not required.</small>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 
 <h3 style="padding:0;margin:0;"> Latest Issues </h3>
 <hr>
@@ -29,5 +84,6 @@
     </div>
 </div>
 {% endfor %}
+{% endif %}
 
 {% endblock %}

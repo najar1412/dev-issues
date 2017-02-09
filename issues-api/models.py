@@ -7,6 +7,7 @@ from sqlalchemy.orm import relationship
 Base = declarative_base()
 
 class Project(Base):
+    # TODO: IMP start date, deadlines etc.
     __tablename__ = 'project'
 
     id = Column(Integer, primary_key=True)

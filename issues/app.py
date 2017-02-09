@@ -7,7 +7,7 @@ BASEURL = 'http://127.0.0.1:5050/issues/api'
 
 @app.route('/', methods=['GET'])
 def index():
-    # TODO: Error catch and return defrault page is database empy.
+    # TODO: Figure out more elgant way to return if no projects exist.
     r = requests.get('{}/project'.format(BASEURL))
     projects = {}
     for project in r.json():
@@ -16,8 +16,8 @@ def index():
                 project['project_code'], project['project_iter'], project['name']
             )
         except:
-            projects = r.json()
-            return render_template('home.html', projects=projects)
+            if r.json()['GET project']['Message'] == 'No projects in table':
+                return render_template('home.html', projects='false')
 
     return render_template('home.html', projects=projects)
 
@@ -26,6 +26,11 @@ def index():
 def projects():
 
     r = requests.get('{}/project'.format(BASEURL))
+    try:
+        if r.json()['GET project']['Message'] == 'No projects in table':
+            return render_template('projects.html', projects='false')
+    except TypeError:
+        pass
 
     return render_template('projects.html', project=r.json())
 
@@ -34,6 +39,9 @@ def projects():
 def issues():
 
     r = requests.get('{}/issue'.format(BASEURL))
+    # check api responce is issues exist
+    if r.json()['GET issues']['Message'] == 'No issues in table':
+        return render_template('issues.html', issue='false')
 
     return render_template('issues.html', issue=r.json())
 
