@@ -3,7 +3,7 @@
 <div class=projectbox>
     <div class=projectboxdetail></div>
         <div class=projectboxhead>
-            <h4 style="padding-bottom:0px;margin-bottom:0px;">{{project.0.project_code}} - {{project.0.project_iter}} | {{project.0.name}}</h4>
+            <h4 style="padding-bottom:0px;margin-bottom:0px;">{{project.0.project_code}}-{{project.0.project_iter}} | {{project.0.name}}</h4>
             <small><a href="#">Edit</a> | <a href="#">Archive</a></small>
         </div>
     <div class=projectboxcontent>
@@ -22,11 +22,11 @@
         <a href="{{ url_for('get_issue', id=issue.0 ) }}">{{issue.0}}</a>,
         {% endif %}
         {% endfor %}
-
     </div>
     <div class=projectboxfooter>
         ...
     </div>
 </div>
+
 
 {% endblock %}
