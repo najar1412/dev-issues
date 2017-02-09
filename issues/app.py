@@ -38,12 +38,31 @@ def projects():
 @app.route('/issues', methods=['GET'])
 def issues():
 
-    r = requests.get('{}/issue'.format(BASEURL))
-    # check api responce is issues exist
-    if r.json()['GET issues']['Message'] == 'No issues in table':
-        return render_template('issues.html', issue='false')
+    projects = {}
+    issue = 'false'
 
-    return render_template('issues.html', issue=r.json())
+    # Build project list
+    p = requests.get('{}/project'.format(BASEURL))
+
+    for project in p.json():
+        try:
+            projects[project['id']] = '{}-{} | {}'.format(
+                project['project_code'], project['project_iter'], project['name']
+            )
+        except:
+            if p.json()['GET project']['Message'] == 'No projects in table':
+                return render_template('home.html', projects='false')
+
+    # Get issues
+    r = requests.get('{}/issue'.format(BASEURL))
+    try:
+        issue = r.json()
+        return render_template('issues.html', issue=issue, projects=projects)
+    except:
+        if r.json()['GET issues']['Message'] == 'No issues in table':
+            issue = 'false'
+
+    return render_template('issues.html', issue=issue, projects=projects)
 
 
 @app.route('/project', methods=['GET'])
@@ -118,6 +137,9 @@ def new_project():
                 project['project_iter']
             )
         )
+
+        for x in r.json():
+            print(x)
 
         return render_template('project.html', project=project)
 

@@ -7,18 +7,14 @@
             <small><a href="#">Edit</a></small>
         </div>
     <div class=projectboxcontent>
-        Project: <a href="{{ url_for('get_project', id=issue.0.project_id ) }}">{{issue.0.project_id}}</a><br>
-        Group: {{issue.0.group}}<br>
-        Content: {{issue.0.issue_data}}<br>
-        Date: {{issue.0.issue_date}}<br>
-        Type: {{issue.0.issue_type}}<br>
-        Source: {{issue.0.src}}<br>
-        Project Lead: [IMP]<br>
-        {% if issue.0.issue_complete == 0 %}
-            Complete: No
-        {% else %}
-            Complete: Yes
-        {% endif %}
+        <h6 style="text-align:center;"> Project: <a href="{{ url_for('get_project', id=issue.0.project_id ) }}">{{issue.0.project_id}}</a> | Group: {{issue.0.group}} | Project Lead: [IMP]</h6>
+        <hr style="margin:2px;">
+        <br>
+        {{issue.0.issue_data}}
+        <br>
+        <br>
+        <hr style="margin:2px;">
+        <h6 style="text-align:center;padding:0px;margin:0px;"> Date: {{issue.0.issue_date}} | Type: {{issue.0.issue_type}} | Source: {{issue.0.src}}</h6>
     </div>
     <div class=projectboxfooter>
 

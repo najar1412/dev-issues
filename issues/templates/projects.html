@@ -5,9 +5,7 @@
 <h3 style="padding:0;margin:0;"> New Project </h3>
 <br>
 
-
 <form action="/new_project" method="post">
-
 
   <div class="form-inline">
     <div>
@@ -34,18 +32,15 @@
     <small id="emailHelp" class="form-text text-muted">Project name, code and iteration</small>
 </div>
 </div>
-  <br>
-  <button type="submit" class="btn btn-primary">Submit</button>
-
-
-</form>
 <br>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 
 {% if projects == 'false' %}
 {% else %}
-
-<h3 style="padding:0;margin:0;">Current Projects</h3>
 <hr>
+<h3 style="padding:0;margin:0;">Current Projects</h3>
+<br>
 {% for x in project %}
 <div class=projectbox>
     <div class=projectboxdetail></div>
@@ -55,9 +50,9 @@
 </div>
 {% endfor %}
 <br>
-<br>
-<h3 style="padding:0;margin:0;">Recently Archived</h3>
 <hr>
+<h3 style="padding:0;margin:0;">Recently Archived</h3>
+<br>
 [IMP]
 {% endif %}
 {% endblock %}

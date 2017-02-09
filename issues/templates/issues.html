@@ -1,10 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% if issue == 'false' %}
-No issues in database.
-{% else %}
-
 <h3 style="padding:0;margin:0;"> New Issue </h3>
 <br>
 
@@ -42,7 +38,6 @@ No issues in database.
     <small id="emailHelp" class="form-text text-muted">Project name, code and iteration</small>
 </div>
 </div>
-<br>
 <div class="form-group">
   <label for="issue_data">*Issue</label>
   <textarea class="form-control" id="issue_data" rows="3" name="issue_data"></textarea>
@@ -53,12 +48,17 @@ No issues in database.
     <input type="file" class="form-control-file" name="issue_attached" id="issue_attached" aria-describedby="issue_attached">
     <small id="issue_attached" class="form-text text-muted">*Not required.</small>
   </div>
-  <br>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-<h3 style="padding:0;margin:0;"> Latest Issues </h3>
+{% if issue == 'false' %}
+No issues in database.
+{% else %}
+
 <hr>
+
+<h3 style="padding:0;margin:0;"> Open Issues </h3>
+<br>
 
 {% for x in issue %}
 <div class=issuebox>
