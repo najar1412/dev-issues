@@ -88,14 +88,14 @@ def issue():
         session = Session()
 
         data = query
-        post_issue(session, **data)
+        test = post_issue(session, **data)
 
         # TODO: IMP Posting of issues
         return make_response(
             jsonify(
                 {
                     'POST issue': 'successful',
-                    'id': 'post_issue.id'
+                    'id': test['id']
                 }
             )
         ), 200
