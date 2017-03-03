@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
 import config.cred as cred
-from apifunc import (
+from packages.apifunc import (
     __reset_db, get_project_by_id, get_project, post_project, post_issue,
     get_issue, delete_project, delete_issue, get_issue_by_id
 )

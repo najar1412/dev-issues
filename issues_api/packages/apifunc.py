@@ -1,5 +1,8 @@
-import config.cred as cred
-from models import Base, Project, Issue, User, Client, Comment
+from .models import Base, Project, Issue, User, Client, Comment
+
+# test setup
+def __helper():
+    pass
 
 # private functions
 def __reset_db(session, engine):
