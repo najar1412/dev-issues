@@ -4,6 +4,7 @@ import requests
 from issues_api.packages import apifunc
 
 # TODO: figure out how to mock database?
+# TODO: it might be better to build a sqlite database to run tests on?
 
 #
 API = 'http://127.0.0.1:5050/issues/api'
