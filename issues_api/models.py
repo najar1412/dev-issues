@@ -3,7 +3,9 @@ from sqlalchemy.dialects import postgresql
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
-
+# TODO: Project needs a 'location' field? to sort by location.
+# TODO: Issues needs to be in 'states'. 'new', 'review/commence', 'complete'?
+# a simple way of tracking process
 Base = declarative_base()
 
 class Project(Base):

@@ -1,4 +1,4 @@
-name: issues-env
+name: issues_env
 dependencies:
 - pip=9.0.1=py36_1
 - python=3.6.0=0
