@@ -2,23 +2,31 @@ import config.cred as cred
 from models import Base, Project, Issue, User, Client, Comment
 
 # private functions
-def reset_db(engine):
-    """drops tables and rebuild"""
+def __reset_db(session, engine):
+    """DEV: drops tables and rebuild"""
+    session.close()
+
     try:
-        Issue.__table__.drop(engine)
-        User.__table__.drop(engine)
-        Client.__table__.drop(engine)
-        Comment.__table__.drop(engine)
-        Project.__table__.drop(engine)
-        print('Old tables removed')
+        import sqlalchemy
+        meta = sqlalchemy.MetaData(engine)
+        meta.reflect()
+        meta.drop_all()
     except:
-        print('failed to remove old tables')
+        print('----------------------------')
+        print('Table have not been deleted.')
+        print('----------------------------')
     try:
         Base.metadata.create_all(engine)
-        print('new tables built')
     except:
-        print('failed to build new tables.')
+        print('---------------------------')
+        print('Tables have not been built.')
+        print('---------------------------')
 
+    print('----------------------------------------')
+    print('Tables removed, and re-built successful.')
+    print('----------------------------------------')
+
+    # TODO: is return True 'pythonic', something better?
     return True
 
 
@@ -56,7 +64,6 @@ def get_project_by_id(session, id):
     return result
 
 
-
 def get_issue_by_id(session, id):
     issue = session.query(Issue).get(id)
 
@@ -82,9 +89,6 @@ def get_issue_by_id(session, id):
         return None
 
     return result
-
-
-
 
 
 def get_project(session):
@@ -189,6 +193,7 @@ def get_issue_by_id(session, id):
 
     return result
 
+
 def get_issue(session):
     """Returns all issue objects"""
     issues = []
@@ -245,6 +250,7 @@ def post_issue(session, **kwarg):
 
 def patch_issue(session, _id):
     pass
+
 
 def delete_issue():
     pass

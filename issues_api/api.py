@@ -4,10 +4,11 @@ from sqlalchemy import create_engine
 
 import config.cred as cred
 from apifunc import (
-    reset_db, get_project_by_id, get_project, post_project, post_issue,
+    __reset_db, get_project_by_id, get_project, post_project, post_issue,
     get_issue, delete_project, delete_issue, get_issue_by_id
 )
 
+# TODO: get flask to check if database exists etc - on start up.
 
 app = Flask(__name__)
 
@@ -23,8 +24,6 @@ ALTER ROLE vhrender SET timezone TO 'UTC';
 GRANT ALL PRIVILEGES ON DATABASE issues TO vhrender;
 """
 
-# TODO: get flask to check if database exists etc - on start up.
-
 BASEURL = '/issues/api'
 
 # Int sqlalchemy engine
@@ -37,6 +36,11 @@ engine = create_engine(
 # Init sessionmaker
 Session = sessionmaker(bind=engine)
 
+# DEV Functions
+""" # drop and create database.
+session = Session()
+__reset_db(session, engine)
+"""
 
 # TODO: Get the logic done for issue and project for PROTOTYPE
 @app.route('{}/'.format(BASEURL), methods=['GET'])
@@ -161,9 +165,6 @@ def patch_issue():
         ), 200
 
 
-# TODO: IMP issue delete via id
-
-
 @app.route('{}/project'.format(BASEURL), methods=['GET', 'POST'])
 def project():
     # TODO: If no args in request, post is still successful. fix it.
@@ -231,6 +232,7 @@ def project():
             jsonify(result)
         ), 200
 
+
 @app.route('{}/project/<int:id>'.format(BASEURL), methods=['GET'])
 def project_by_id(id):
 
@@ -243,7 +245,6 @@ def project_by_id(id):
     return make_response(
         jsonify(project)
     ), 200
-
 
 
 @app.route('{}/project/patch'.format(BASEURL), methods=['PATCH'])
@@ -408,9 +409,6 @@ def delete_comment():
             jsonify({'DELETE comment': 'successful'})
         ), 200
 
-
-
-# reset_db(engine)
 
 if __name__ == '__main__':
     app.run(port=5050, debug=True)

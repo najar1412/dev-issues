@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, func
+from sqlalchemy import Table, Column, Integer, String, ForeignKey, DateTime, func
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -6,7 +6,21 @@ from sqlalchemy.orm import relationship
 # TODO: Project needs a 'location' field? to sort by location.
 # TODO: Issues needs to be in 'states'. 'new', 'review/commence', 'complete'?
 # a simple way of tracking process
+# TODO: Issues needs to have a field for 'projected finish'
+
+# join database
+# TODO: IMP - Project, Issue - M2M
+# TODO: IMP - Issue, Client, M2M
+
+
 Base = declarative_base()
+
+"""association tables"""
+# association table: Project.id, Issue.id, M2M
+project_issue = Table('project_issue', Base.metadata,
+    Column('project_id', Integer, ForeignKey('project.id')),
+    Column('issues_id', Integer, ForeignKey('issue.id'))
+)
 
 class Project(Base):
     # TODO: IMP start date, deadlines etc.
@@ -20,7 +34,7 @@ class Project(Base):
     client = Column(String, default='test')
     # relational data
     issues = relationship(
-        "Issue", backref='project'
+        "Issue", secondary=project_issue, back_populates='projects'
     )
 
     def __repr__(self):
@@ -41,7 +55,9 @@ class Issue(Base):
     issue_complete = Column(Integer, default=0)
 
     # relational data
-    project_id = Column(Integer, ForeignKey('project.id'))
+    projects = relationship('Project',
+        secondary=project_issue
+    )
 
     def __repr__(self):
         return "<Issue(id='%s', group='%s')>" % (
