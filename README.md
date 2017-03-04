@@ -1,12 +1,24 @@
 IN DEVELOPMENT
+# Issues
 
+---
+Issues is a json webapi for managing client/artist interactions. It's a 'ticket' system for handling all aspects of client communication that may affect artists finals deliverable.
+
+#### Sample Code
+
+> `Python` Using requests library to access api.
+>```python
+> # Return api methods
+>r = requests.get('127.0.0.1:5050/issues/api')
+>
+> # Return all issues
+>r = requests.get('127.0.0.1:5050/issues/api/issues')
+>```
 
 Issues
-=========================
 
+## api
 Core Func
-
-a system to manage client/artist issued information.
 
 Organised by project code (and interation?)
 groups by source (email, phone, call)
@@ -21,8 +33,7 @@ then makes a dicsion based on data.
 maybe commented on
 links can be sent to artists
 
-UI
---
+## Frontend
 
 card based interface that can be 'checked off'
 
