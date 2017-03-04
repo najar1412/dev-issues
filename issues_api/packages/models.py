@@ -23,18 +23,6 @@ project_issue = Table('project_issue', Base.metadata,
 )
 '''
 
-"""
-class Parent(Base):
-    __tablename__ = 'parent'
-    id = Column(Integer, primary_key=True)
-    children = relationship("Child")
-
-class Child(Base):
-    __tablename__ = 'child'
-    id = Column(Integer, primary_key=True)
-    parent_id = Column(Integer, ForeignKey('parent.id'))
-"""
-
 class Project(Base):
     # TODO: IMP start date, deadlines etc.
     __tablename__ = 'project'

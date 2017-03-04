@@ -14,7 +14,8 @@
         <h6 style="text-align:center;padding:0px;margin:0px;"> Date: {{issue.0.issue_date}} | Type: {{issue.0.issue_type}} | Source: {{issue.0.src}}</h6>
     </div>
     <div class=projectboxfooter>
-
+        <br>
+        <a href="{{ url_for('patch_issue', id=issue.0.id, signoff=1 ) }}">sign off</a> |
         <a href="#">Download Attachments</a> |
         {% if issue.0.issue_complete == 1 %}
         Completed: <a href="#"><span class="glyphicon glyphicon-ok" style="color:green;" aria-hidden="true"></span></a>

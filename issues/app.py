@@ -74,6 +74,25 @@ def get_project():
     return render_template('project.html', project=r.json())
 
 
+@app.route('/patch_issue', methods=['GET', 'POST'])
+def patch_issue():
+    issue_id = request.args.get('id')
+    data = {}
+    # build dict of user data
+    for arg in request.args:
+        data[arg] = request.args[arg]
+
+    print(data)
+
+    g = requests.patch('{}/issue/patch?id={}&signoff={}'.format(BASEURL, data['id'], data['signoff']))
+
+    #
+
+    r = requests.get('{}/issue/{}'.format(BASEURL, int(data['id'])))
+
+    return render_template('issue.html', issue=r.json())
+
+
 @app.route('/issue', methods=['GET'])
 def get_issue():
     issue_id = request.args.get('id')

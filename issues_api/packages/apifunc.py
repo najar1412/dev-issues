@@ -1,3 +1,5 @@
+import json
+
 from .models import Base, Project, Issue, User, Client, Comment
 
 # test setup
@@ -34,6 +36,73 @@ def __reset_db(session, engine):
     return True
 
 
+# helper functions
+def make_dict(item_list):
+    """ takes list of database objects, returns dict repr of objects. """
+    # TODO: using '__tablename__' on objects does the same jobs as 'item_type'
+    # any point in having it as column?
+    result = []
+
+    # for each database object, build dict, 'item', from data.
+    for item_object in item_list:
+        item = {}
+        for column in item_object.__table__.columns:
+            item[column.name] = str(getattr(item_object, column.name))
+
+        """
+
+        # additional many-to-many data
+        # init tags
+        # TODO: '.append(str(tag.name))' could more info be used here? like
+        # {'name': 'int(assets rate?)'} maybe too advanced?
+        if item_object.item_type == 'asset':
+            # If object is asset
+            # init tags
+            item['tags'] = []
+            assets_tags = item_object.tags
+
+            for tag in assets_tags:
+                item['tags'].append(str(tag.name))
+
+            # init collections
+            item['collections'] = []
+            # get assets collections via many-to-many
+            assets_collections = item_object.collections
+
+            # append collection objects to 'item'
+            for collection in assets_collections:
+                item['collections'].append(
+                    (int(collection.id), str(collection.name))
+                )
+
+
+
+        elif item_object.item_type == 'collection':
+            # If object is a collection
+            # init tags
+            item['tags'] = []
+            collections_tags = item_object.tags
+
+            for tag in collections_tags:
+                item['tags'].append(str(tag.name))
+
+            # init assets
+            item['assets'] = []
+            assignments = item_object.assets
+
+            for assignment in assignments:
+                bla = make_dict((assignment,))[0]
+                item['assets'].append(
+                    bla
+                )
+        """
+
+        result.append(item)
+
+    # return database objects as dicts.
+    return result
+
+
 # Public functions
 #--
 # project functions
@@ -58,6 +127,10 @@ def get_project_by_id(session, id):
         bla[issue.id] = [str(issue.issue_date)[:-10], issue.issue_complete]
 
     project_columns = Project.__table__.columns.keys()
+
+    test = make_dict((project,))
+    print('--------------')
+    print(test)
 
     result = []
     # TODO: Make better.

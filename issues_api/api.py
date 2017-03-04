@@ -214,6 +214,8 @@ def project():
         # TODO: refactor to function
         result = []
         for project in projects:
+
+            # build project dict
             result.append(
                 {
                     'id': project.id,
@@ -227,6 +229,9 @@ def project():
             )
 
         session.close()
+
+        print(result)
+
         # TODO: IMP getting of project
         return make_response(
             jsonify(result)
@@ -239,8 +244,9 @@ def project_by_id(id):
     # init session
     session = Session()
     project = get_project_by_id(session, id)
-
     session.close()
+
+    print(project)
 
     return make_response(
         jsonify(project)
@@ -249,6 +255,8 @@ def project_by_id(id):
 
 @app.route('{}/project/patch'.format(BASEURL), methods=['PATCH'])
 def pat_project():
+    # allowed params
+    # {'name': '', 'issues': 1, 'rem-issues': 1}
     if request.method=='PATCH':
 
         data = {}
@@ -257,8 +265,10 @@ def pat_project():
 
         # Init session
         session = Session()
-        patch_project(session, **data)
+        issue = patch_project(session, **data)
         session.close()
+
+        print(issue)
 
         # TODO: IMP patching project
         return make_response(
