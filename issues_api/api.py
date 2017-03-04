@@ -5,7 +5,8 @@ from sqlalchemy import create_engine
 import config.cred as cred
 from packages.apifunc import (
     __reset_db, get_project_by_id, get_project, post_project, post_issue,
-    get_issue, delete_project, delete_issue, get_issue_by_id, patch_project
+    get_issue, delete_project, delete_issue, get_issue_by_id, patch_project,
+    patch_issue
 )
 
 # TODO: get flask to check if database exists etc - on start up.
@@ -146,9 +147,17 @@ def issue_by_id(id):
 
 @app.route('{}/issue/patch'.format(BASEURL), methods=['PATCH'])
 def pat_issue():
+    # allowed params
+    # {'data': '', 'signoff': 1}
     if request.method=='PATCH':
+        data = {}
+        for attr in request.args:
+            data[attr] = request.args.get(attr)
+
         # Init session
-        # session = Session()
+        session = Session()
+        patch_issue(session, **data)
+        session.close()
 
         # TODO: IMP patching issues
         return make_response(
@@ -270,6 +279,7 @@ def delete_project(_id):
         return make_response(
             jsonify({'DELETE project': 'successful'})
         ), 200
+
 
 # TODO: Below is seconday
 # user views

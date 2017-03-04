@@ -148,6 +148,7 @@ def patch_project(session, **kwarg):
 
     session.commit()
 
+
     # TODO: Return the patched proejct as dict/json?
     return True
 
@@ -259,8 +260,23 @@ def post_issue(session, **kwarg):
     return test
 
 
-def patch_issue(session, _id):
-    pass
+def patch_issue(session, **kwarg):
+    issue = session.query(Issue).get(kwarg['id'])
+    if 'data' in kwarg:
+        issue.issue_data = kwarg['data']
+
+    elif 'signoff' in kwarg:
+        if int(issue.issue_complete) == 1:
+            issue.issue_complete = 0
+
+        else:
+            issue.issue_complete = 1
+
+    session.commit()
+
+
+    # TODO: Return the patched proejct as dict/json?
+    return True
 
 
 def delete_issue():
