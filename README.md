@@ -15,8 +15,6 @@ Issues is a json webapi for managing client/artist interactions. It's a 'ticket'
 >r = requests.get('127.0.0.1:5050/issues/api/issues')
 >```
 
-Issues
-
 ## api
 Core Func
 

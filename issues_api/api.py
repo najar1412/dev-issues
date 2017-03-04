@@ -5,39 +5,29 @@ from sqlalchemy import create_engine
 import config.cred as cred
 from packages.apifunc import (
     __reset_db, get_project_by_id, get_project, post_project, post_issue,
-    get_issue, delete_project, delete_issue, get_issue_by_id
+    get_issue, delete_project, delete_issue, get_issue_by_id, patch_project
 )
 
 # TODO: get flask to check if database exists etc - on start up.
 
 app = Flask(__name__)
 
-"""
-Set up dev database, if False
-
-sudo -u postgres psql
-CREATE DATABASE issues;
-CREATE USER vhrender WITH PASSWORD 'vhrender2011';
-ALTER ROLE vhrender SET client_encoding TO 'utf8';
-ALTER ROLE vhrender SET default_transaction_isolation TO 'read committed';
-ALTER ROLE vhrender SET timezone TO 'UTC';
-GRANT ALL PRIVILEGES ON DATABASE issues TO vhrender;
-"""
-
 BASEURL = '/issues/api'
 
 # Int sqlalchemy engine
 engine = create_engine(
     'postgresql://{}:{}@{}:5432/issues'.format(
-        cred.username, cred.password, cred.ip
+        cred.username, cred.password, cred.ip_local
     ), echo=False
 )
 
 # Init sessionmaker
 Session = sessionmaker(bind=engine)
 
+
 # DEV Functions
-""" # drop and create database.
+# drop and create database.
+"""
 session = Session()
 __reset_db(session, engine)
 """
@@ -78,7 +68,7 @@ def home():
             jsonify(welcome)
         ), 200
 
-
+# issue views
 @app.route('{}/issue'.format(BASEURL), methods=['GET', 'POST'])
 def issue():
     if request.method=='POST':
@@ -93,6 +83,7 @@ def issue():
 
         data = query
         test = post_issue(session, **data)
+        session.close()
 
         # TODO: IMP Posting of issues
         return make_response(
@@ -154,7 +145,7 @@ def issue_by_id(id):
 
 
 @app.route('{}/issue/patch'.format(BASEURL), methods=['PATCH'])
-def patch_issue():
+def pat_issue():
     if request.method=='PATCH':
         # Init session
         # session = Session()
@@ -164,7 +155,7 @@ def patch_issue():
             jsonify({'PATCH issue': 'successful'})
         ), 200
 
-
+# project views
 @app.route('{}/project'.format(BASEURL), methods=['GET', 'POST'])
 def project():
     # TODO: If no args in request, post is still successful. fix it.
@@ -248,10 +239,17 @@ def project_by_id(id):
 
 
 @app.route('{}/project/patch'.format(BASEURL), methods=['PATCH'])
-def patch_project():
+def pat_project():
     if request.method=='PATCH':
+
+        data = {}
+        for attr in request.args:
+            data[attr] = request.args.get(attr)
+
         # Init session
-        # session = Session()
+        session = Session()
+        patch_project(session, **data)
+        session.close()
 
         # TODO: IMP patching project
         return make_response(
@@ -273,8 +271,8 @@ def delete_project(_id):
             jsonify({'DELETE project': 'successful'})
         ), 200
 
-
-# TODO: IMP the below for ALPHA
+# TODO: Below is seconday
+# user views
 @app.route('{}/user'.format(BASEURL), methods=['GET', 'POST'])
 def user():
     if request.method=='POST':
@@ -319,7 +317,7 @@ def delete_user():
             jsonify({'DELETE user': 'successful'})
         ), 200
 
-
+# client views
 @app.route('{}/client'.format(BASEURL), methods=['GET', 'POST'])
 def client():
     if request.method=='POST':
@@ -364,7 +362,7 @@ def delete_client():
             jsonify({'DELETE client': 'successful'})
         ), 200
 
-
+# comment views
 @app.route('{}/comment'.format(BASEURL), methods=['GET', 'POST'])
 def comment():
     if request.method=='POST':

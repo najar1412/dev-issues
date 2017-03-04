@@ -5,6 +5,7 @@ def __helper():
     pass
 
 # private functions
+#--
 def __reset_db(session, engine):
     """DEV: drops tables and rebuild"""
     session.close()
@@ -34,6 +35,18 @@ def __reset_db(session, engine):
 
 
 # Public functions
+#--
+# project functions
+def get_project(session):
+    """Returns all project objects"""
+    projects = []
+    bla = session.query(Project).all()
+    for project in session.query(Project).order_by(Project.id):
+        projects.append(project)
+
+    return projects
+
+
 def get_project_by_id(session, id):
     # TODO: More programmical-magic, less hardcoding.
     # TODO: Datetime formatting, (currently using slicing)
@@ -65,42 +78,6 @@ def get_project_by_id(session, id):
         return None
 
     return result
-
-
-def get_issue_by_id(session, id):
-    issue = session.query(Issue).get(id)
-
-    issue_columns = Issue.__table__.columns.keys()
-
-    result = []
-    # TODO: Make better.
-    try:
-        result.append(
-            {
-                issue_columns[0]: issue.id,
-                issue_columns[1]: issue.group,
-                issue_columns[2]: issue.src,
-                issue_columns[3]: str(issue.issue_date)[:-10],
-                issue_columns[4]: issue.issue_type,
-                issue_columns[5]: issue.issue_data,
-                issue_columns[6]: issue.issue_complete,
-                issue_columns[7]: issue.project_id
-            }
-        )
-
-    except:
-        return None
-
-    return result
-
-
-def get_project(session):
-    """Returns all project objects"""
-    projects = []
-    for project in session.query(Project).order_by(Project.id):
-        projects.append(project)
-
-    return projects
 
 
 def post_project(session, **kwarg):
@@ -144,8 +121,35 @@ def post_project(session, **kwarg):
     return test
 
 
-def patch_project(session, id):
-    pass
+def patch_project(session, **kwarg):
+    project = session.query(Project).get(kwarg['id'])
+    if 'name' in kwarg:
+        project.name = kwarg['name']
+
+    elif 'issues' in kwarg:
+        if isinstance(kwarg['issues'], str):
+
+            issue = session.query(Issue).get(int(kwarg['issues']))
+            project.issues.append(issue)
+
+        elif isinstance(kwarg['issues'], list):
+            # process is lit is passed
+            pass
+
+    elif 'rem-issue' in kwarg:
+        if isinstance(kwarg['rem-issues'], str):
+
+            issue = session.query(Issue).get(int(kwarg['rem-issues']))
+            project.issues.remove(issue)
+
+        elif isinstance(kwarg['rem-issues'], list):
+            # process is lit is passed
+            pass
+
+    session.commit()
+
+    # TODO: Return the patched proejct as dict/json?
+    return True
 
 
 def delete_project(session, _id):
@@ -166,8 +170,15 @@ def delete_project(session, _id):
         return False
 
 
-def get_issue_by_project(session, id):
-    pass
+# issue functions
+def get_issue(session):
+    """Returns all issue objects"""
+    issues = []
+    for issue in session.query(Issue).order_by(Issue.id):
+        issues.append(issue)
+    session.close()
+
+    return issues
 
 
 def get_issue_by_id(session, id):
@@ -197,14 +208,8 @@ def get_issue_by_id(session, id):
     return result
 
 
-def get_issue(session):
-    """Returns all issue objects"""
-    issues = []
-    for issue in session.query(Issue).order_by(Issue.id):
-        issues.append(issue)
-    session.close()
-
-    return issues
+def get_issue_by_project(session, id):
+    pass
 
 
 def post_issue(session, **kwarg):
@@ -236,17 +241,20 @@ def post_issue(session, **kwarg):
         issue_type=query['issue_type'], issue_data=query['issue_data'],
     )
 
-    append_to_project = session.query(Project).get(query['project_id'])
-    append_to_project.issues.append(issue)
-
     session.add(issue)
+
+    if 'project_id' in query:
+        project = session.query(Project).get(int(query['project_id']))
+        project.issues.append(issue)
+        session.add(project)
+
     session.commit()
+
 
     test = {
         'id': issue.id
     }
 
-    session.close()
 
     return test
 

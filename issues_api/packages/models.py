@@ -14,13 +14,26 @@ from sqlalchemy.orm import relationship
 
 
 Base = declarative_base()
-
+'''
 """association tables"""
 # association table: Project.id, Issue.id, M2M
 project_issue = Table('project_issue', Base.metadata,
     Column('project_id', Integer, ForeignKey('project.id')),
     Column('issues_id', Integer, ForeignKey('issue.id'))
 )
+'''
+
+"""
+class Parent(Base):
+    __tablename__ = 'parent'
+    id = Column(Integer, primary_key=True)
+    children = relationship("Child")
+
+class Child(Base):
+    __tablename__ = 'child'
+    id = Column(Integer, primary_key=True)
+    parent_id = Column(Integer, ForeignKey('parent.id'))
+"""
 
 class Project(Base):
     # TODO: IMP start date, deadlines etc.
@@ -33,9 +46,7 @@ class Project(Base):
     archived = Column(Integer, default=0)
     client = Column(String, default='test')
     # relational data
-    issues = relationship(
-        "Issue", secondary=project_issue, back_populates='projects'
-    )
+    issues = relationship('Issue')
 
     def __repr__(self):
         return "<Project(id='%s', name='%s', client'%s'>" % (
@@ -55,9 +66,7 @@ class Issue(Base):
     issue_complete = Column(Integer, default=0)
 
     # relational data
-    projects = relationship('Project',
-        secondary=project_issue
-    )
+    project_id = Column(Integer, ForeignKey('project.id'))
 
     def __repr__(self):
         return "<Issue(id='%s', group='%s')>" % (
