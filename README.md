@@ -50,9 +50,3 @@ Documentation
 -------------
 
 ...
-
-
-How to Contribute
------------------
-
-...
