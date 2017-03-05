@@ -3,8 +3,15 @@
 <div class=projectbox>
     <div class=projectboxdetail></div>
         <div class=projectboxhead>
-            <h4 style="padding-bottom:0px;margin-bottom:0px;">Issue #{{issue.0.id}}</h4>
-            <small><a href="#">Edit</a> | <a href="#">Close Issue</a></small>
+
+            {% if issue.0.issue_complete == 0 %}
+
+            <h4 style="padding-bottom:0px;margin-bottom:0px;">Issue #{{issue.0.id}} | OPEN</h4>
+            {% else %}
+            <h4 style="padding-bottom:0px;margin-bottom:0px;">Issue #{{issue.0.id}} | CLOSED</h4>
+            {% endif %}
+
+            <small><a href="#">Edit</a>
         </div>
     <div class=projectboxcontent>
         <h6 style="text-align:center;"> Project: <a href="{{ url_for('get_project', id=issue.0.project_id ) }}">{{issue.0.project_id}}</a> | Group: {{issue.0.group}} | Project Lead: [IMP]</h6>
@@ -15,7 +22,7 @@
     </div>
     <div class=projectboxfooter>
         <br>
-        <a href="{{ url_for('patch_issue', id=issue.0.id, signoff=1 ) }}">sign off</a> |
+        <a href="{{ url_for('patch_issue', id=issue.0.id, signoff=1 ) }}">Close Issue</a> |
         <a href="#">Download Attachments</a> |
         {% if issue.0.issue_complete == 1 %}
         Completed: <a href="#"><span class="glyphicon glyphicon-ok" style="color:green;" aria-hidden="true"></span></a>

@@ -1,6 +1,51 @@
 {% extends "base.html" %}
 {% block content %}
 
+
+{% if issue == 'false' %}
+No issues in database.
+{% else %}
+
+<h3 style="padding:0;margin:0;"> Open Issues </h3>
+<br>
+
+{% for x in issue %}
+{% if x.issue_complete == 0 %}
+
+
+<div class=issuebox>
+    <div class=issueboxdetail></div>
+        <div class=issueboxhead>
+            <a href="{{ url_for('get_issue', id=x.id ) }}"><h4>Issue #{{ x.id }}</h4></a>
+        </div>
+    <div class=issueboxcontent>
+        {{ x.issue_data }}
+        <hr>
+        <h6>
+            Project: <a href="{{ url_for('get_project', id=x.project_id ) }}">{{ x.project_id }}</a><br>
+            Deadline: [IMP]<br>
+        </h6>
+    </div>
+    <div class=issueboxfooter>
+        <a href="{{ url_for('patch_issue', id=x.id, signoff=1 ) }}">Close Issue</a>
+    </div>
+</div>
+
+
+
+
+{% else %}
+{% endif %}
+
+
+
+{% endfor %}
+{% endif %}
+
+
+<hr>
+
+
 <h3 style="padding:0;margin:0;"> New Issue </h3>
 <br>
 
@@ -50,39 +95,5 @@
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-
-{% if issue == 'false' %}
-No issues in database.
-{% else %}
-
-<hr>
-
-<h3 style="padding:0;margin:0;"> Open Issues </h3>
-<br>
-
-{% for x in issue %}
-<div class=issuebox>
-    <div class=issueboxdetail></div>
-        <div class=issueboxhead>
-            <a href="{{ url_for('get_issue', id=x.id ) }}"><h4>Issue #{{ x.id }}</h4></a>
-        </div>
-    <div class=issueboxcontent>
-        {{ x.issue_data }}
-        <hr>
-        <h6>
-            Project: <a href="{{ url_for('get_project', id=x.project_id ) }}">{{ x.project_id }}</a><br>
-            Type: {{x.issue_type}}<br>
-        </h6>
-    </div>
-    <div class=issueboxfooter>
-        {% if x.issue_complete == 1 %}
-        Completed: <a href="#"><span class="glyphicon glyphicon-ok" style="color:green;" aria-hidden="true"></span></a>
-        {% else %}
-        Completed: <a href="#"><span class="glyphicon glyphicon-remove" style="color:red;" aria-hidden="true"></span></a>
-        {% endif %}
-    </div>
-</div>
-{% endfor %}
-{% endif %}
 
 {% endblock %}

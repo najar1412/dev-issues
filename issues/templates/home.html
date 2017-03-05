@@ -4,8 +4,11 @@
 {% if projects == 'false' %}
 No projects in database. Please add one via 'Projects' tab.
 {% else %}
-
-
+<h3 style="padding:0;margin:0;">Issues</h3>
+<small>filters: <a href='#'><span style='color:red;'>project</span> - deadline - newest</a></small>
+{% endif %}
+<br>
+<br>
 [filter up comming issue deadlines that arnt signed off]<br>
 [filter by location]<br>
 [... by project]<br>
@@ -13,5 +16,5 @@ No projects in database. Please add one via 'Projects' tab.
 <br>
 [...]
 </br>
-{% endif %}
+
 {% endblock %}

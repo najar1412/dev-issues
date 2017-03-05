@@ -7,8 +7,21 @@
             <small><a href="#">Edit</a> | <a href="#">Archive</a></small>
         </div>
     <div class=projectboxcontent>
+        <div style="display: inline-block;width:290px;">
+        <b>Development</b><br>
+        website: [IMP]<br>
+        location: [IMP]<br>
+        </div>
+        <div style="display: inline-block;width:290px;">
+        <b>Contacts</b><br>
         Client: {{project.0.client}} <br>
         Project Lead: [IMP] <br>
+        </div>
+
+        <hr>
+
+        <b>Issues</b><br>
+
         Open Issues:
         {% for issue in project.0.issues.items() %}
         {% if issue.1.1 == 0 %}
@@ -16,12 +29,14 @@
         {% endif %}
         {% endfor %}
         <br>
+
         Closed Issues:
         {% for issue in project.0.issues.items() %}
         {% if issue.1.1 == 1 %}
         <a href="{{ url_for('get_issue', id=issue.0 ) }}">{{issue.0}}</a>,
         {% endif %}
         {% endfor %}
+
     </div>
     <div class=projectboxfooter>
         ...

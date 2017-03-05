@@ -1,6 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% if projects == 'false' %}
+{% else %}
+
+<h3 style="padding:0;margin:0;">Current Projects</h3>
+<br>
+{% for x in project %}
+<div class=projectbox>
+    <div class=projectboxdetail></div>
+        <div class=projectboxhead>
+            <a href="{{ url_for('get_project', id=x.id ) }}"><h4>{{x.project_code}}-{{x.project_iter}} | {{x.name}}</h4></a>
+        </div>
+</div>
+{% endfor %}
+<br>
+<hr>
+<h3 style="padding:0;margin:0;">Recently Archived</h3>
+<br>
+[IMP]
+{% endif %}
+
+<hr>
 
 <h3 style="padding:0;margin:0;"> New Project </h3>
 <br>
@@ -36,23 +57,9 @@
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-{% if projects == 'false' %}
-{% else %}
-<hr>
-<h3 style="padding:0;margin:0;">Current Projects</h3>
-<br>
-{% for x in project %}
-<div class=projectbox>
-    <div class=projectboxdetail></div>
-        <div class=projectboxhead>
-            <a href="{{ url_for('get_project', id=x.id ) }}"><h4>{{x.project_code}}-{{x.project_iter}} | {{x.name}}</h4></a>
-        </div>
-</div>
-{% endfor %}
-<br>
-<hr>
-<h3 style="padding:0;margin:0;">Recently Archived</h3>
-<br>
-[IMP]
-{% endif %}
+
+
+
+
+
 {% endblock %}
