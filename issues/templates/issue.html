@@ -22,13 +22,8 @@
     </div>
     <div class=projectboxfooter>
         <br>
-        <a href="{{ url_for('patch_issue', id=issue.0.id, signoff=1 ) }}">Close Issue</a> |
         <a href="#">Download Attachments</a> |
-        {% if issue.0.issue_complete == 1 %}
-        Completed: <a href="#"><span class="glyphicon glyphicon-ok" style="color:green;" aria-hidden="true"></span></a>
-        {% else %}
-        Completed: <a href="#"><span class="glyphicon glyphicon-remove" style="color:red;" aria-hidden="true"></span></a>
-        {% endif %}
+        <a href="{{ url_for('patch_issue', id=issue.0.id, signoff=1 ) }}">Close Issue</a>
     </div>
 </div>
 

@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 BASEURL = 'http://127.0.0.1:5050/issues/api'
 
+# Old home page.
 """
 @app.route('/', methods=['GET'])
 def index():
@@ -47,19 +48,23 @@ def issues():
     p = requests.get('{}/project'.format(BASEURL))
 
     for project in p.json():
-        try:
-            projects[project['id']] = '{}-{} | {}'.format(
-                project['project_code'], project['project_iter'], project['name']
-            )
-        except:
-            if p.json()['GET project']['Message'] == 'No projects in table':
-                return render_template('home.html', projects='false')
+        if 'archived' in project:
+            try:
+                projects[project['id']] = '{}-{} | {}'.format(
+                    project['project_code'], project['project_iter'], project['name']
+                )
+            except:
+                if p.json()['GET project']['Message'] == 'No projects in table':
+                    return render_template('home.html', projects='false')
+        else:
+            pass
 
     # Get issues
     r = requests.get('{}/issue'.format(BASEURL))
     try:
         issue = r.json()
         return render_template('issues.html', issue=issue, projects=projects)
+
     except:
         if r.json()['GET issues']['Message'] == 'No issues in table':
             issue = 'false'
@@ -93,6 +98,25 @@ def patch_issue():
     r = requests.get('{}/issue/{}'.format(BASEURL, int(data['id'])))
 
     return render_template('issue.html', issue=r.json())
+
+
+@app.route('/patch_project', methods=['GET', 'POST'])
+def patch_project():
+    issue_id = request.args.get('id')
+    data = {}
+    # build dict of user data
+    for arg in request.args:
+        data[arg] = request.args[arg]
+
+    print(data)
+
+    g = requests.patch('{}/project/patch?id={}&archive={}'.format(BASEURL, data['id'], data['archive']))
+
+    #
+
+    r = requests.get('{}/project/{}'.format(BASEURL, int(data['id'])))
+
+    return render_template('project.html', project=r.json())
 
 
 @app.route('/issue', methods=['GET'])
@@ -199,6 +223,7 @@ def query():
 @app.route('/user', methods=['GET'])
 def get_user():
     return render_template('user.html')
+
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

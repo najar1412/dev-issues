@@ -7,18 +7,32 @@
 <h3 style="padding:0;margin:0;">Current Projects</h3>
 <br>
 {% for x in project %}
+{% if x.archived == 0 %}
 <div class=projectbox>
     <div class=projectboxdetail></div>
         <div class=projectboxhead>
             <a href="{{ url_for('get_project', id=x.id ) }}"><h4>{{x.project_code}}-{{x.project_iter}} | {{x.name}}</h4></a>
         </div>
 </div>
+{% else %}
+{% endif %}
 {% endfor %}
 <br>
 <hr>
 <h3 style="padding:0;margin:0;">Recently Archived</h3>
 <br>
-[IMP]
+{% for x in project %}
+{% if x.archived == 1 %}
+<div class=projectbox>
+    <div class=projectboxdetail></div>
+        <div class=projectboxhead>
+            <a href="{{ url_for('get_project', id=x.id ) }}"><h4>{{x.project_code}}-{{x.project_iter}} | {{x.name}}</h4></a>
+        </div>
+</div>
+{% else %}
+{% endif %}
+{% endfor %}
+
 {% endif %}
 
 <hr>

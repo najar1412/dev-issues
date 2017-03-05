@@ -219,7 +219,15 @@ def patch_project(session, **kwarg):
             # process is lit is passed
             pass
 
+    elif 'archive' in kwarg:
+        if int(project.archived) == 1:
+            project.archived = 0
+        else:
+            project.archived = 1
+
+
     session.commit()
+
 
 
     # TODO: Return the patched proejct as dict/json?

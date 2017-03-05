@@ -3,8 +3,12 @@
 <div class=projectbox>
     <div class=projectboxdetail></div>
         <div class=projectboxhead>
+            {% if project.0.archived == 1 %}
+            <h4 style="padding-bottom:0px;margin-bottom:0px;">{{project.0.project_code}}-{{project.0.project_iter}} | {{project.0.name}} | ARCHIVED</h4>
+            {% else %}
             <h4 style="padding-bottom:0px;margin-bottom:0px;">{{project.0.project_code}}-{{project.0.project_iter}} | {{project.0.name}}</h4>
-            <small><a href="#">Edit</a> | <a href="#">Archive</a></small>
+            {% endif %}
+            <small><a href="#">Edit</a> | <a href="{{ url_for('patch_project', id=project.0.id, archive=1 ) }}">Archive</a></small>
         </div>
     <div class=projectboxcontent>
         <div style="display: inline-block;width:290px;vertical-align: text-top;">
