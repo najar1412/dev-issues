@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 BASEURL = 'http://127.0.0.1:5050/issues/api'
 
+"""
 @app.route('/', methods=['GET'])
 def index():
     # TODO: Figure out more elgant way to return if no projects exist.
@@ -21,6 +22,7 @@ def index():
 
     return render_template('home.html', projects=projects)
 
+"""
 
 @app.route('/projects', methods=['GET'])
 def projects():
@@ -35,7 +37,7 @@ def projects():
     return render_template('projects.html', project=r.json())
 
 
-@app.route('/issues', methods=['GET'])
+@app.route('/', methods=['GET'])
 def issues():
 
     projects = {}
@@ -193,6 +195,10 @@ def query():
 
     return render_template('query.html', query=query)
 
+# Seconary wants
+@app.route('/user', methods=['GET'])
+def get_user():
+    return render_template('user.html')
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

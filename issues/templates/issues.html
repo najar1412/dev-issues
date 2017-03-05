@@ -1,14 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
-
 {% if issue == 'false' %}
 No issues in database.
 {% else %}
-
-<h3 style="padding:0;margin:0;"> Open Issues </h3>
+<h3 style="padding:0;margin:0;">Issues</h3>
+<small>filters: <a href='#'><span style='color:red;'>project</span> - deadline - newest</a></small><br>
 <br>
-
 {% for x in issue %}
 {% if x.issue_complete == 0 %}
 
