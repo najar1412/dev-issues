@@ -7,9 +7,9 @@ No issues in database.
 <h3 style="padding:0;margin:0;">Issues</h3>
 <small>filters: <a href='#'><span style='color:red;'>project</span> - deadline - newest</a></small><br>
 <br>
+
 {% for x in issue %}
 {% if x.issue_complete == 0 %}
-
 
 <div class=issuebox>
     <div class=issueboxdetail></div>
@@ -28,9 +28,6 @@ No issues in database.
         <a href="{{ url_for('patch_issue', id=x.id, signoff=1 ) }}">Close Issue</a>
     </div>
 </div>
-
-
-
 
 {% else %}
 {% endif %}
@@ -63,7 +60,7 @@ No issues in database.
     <div style="clear:both;">
       <div id=left style="float:left;width:33.3%;text-align:left;">
 
-        
+
         <select class="form-control" id="project_id" name='project_id' aria-describedby="emailHelp" style="width:100%;">
 
             {% for x in projects.items() %}

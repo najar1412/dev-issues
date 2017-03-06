@@ -19,9 +19,15 @@
                 display: inline-block;
                 color:#ff5d72;
             }
+            html, body {
+                background-color: #E9E9E9;
+                height: 100%;
+            }
         </style>
     </head>
-    <body style="background-color:#dfe4ea">
+    <body>
+        <div id="content">
+
         <div id="site_header">
             <div id="menu">
               <!-- better way to remove whitespace between side divs? currently
@@ -50,7 +56,6 @@
 
                 </div>
 
-
                 <div id="searchboxdetail"></div>
                 <div id="searchboxcontent">
                     <div class="form-group has-feedback has-feedback" style="padding:0;height:0;box-shadow: 1px 1px 5px rgba(0,0,0,0.1);">
@@ -65,11 +70,15 @@
 
             </div>
         </div>
-        <p style="height:30px">
+        <br>
+        <hr>
 
-        <div id="content">
+            <div style="padding: 0 1cm 1cm 1cm;">
             {% block content %}
+
+
             {% endblock %}
+        </div>
         </div>
 
 <!--- find out how to make a stitchy button bar.
