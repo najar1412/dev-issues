@@ -17,6 +17,9 @@
         <h6 style="text-align:center;"> Project: <a href="{{ url_for('get_project', id=issue.0.project_id ) }}">{{issue.0.project_id}}</a> | Group: {{issue.0.group}} | Project Lead: [IMP]</h6>
         <hr style="margin:2px;">
         {{issue.0.issue_data}}
+        <hr>
+        <span style='color:#4eb0e5;'><b>Attached files: </b></span>
+        <a href='#'>file01.jpg</a>, <a href='#'>masterplan.pdf</a>
         <hr style="margin:2px;">
         <h6 style="text-align:center;padding:0px;margin:0px;"> Date: {{issue.0.issue_date}} | Type: {{issue.0.issue_type}} | Source: {{issue.0.src}}</h6>
     </div>

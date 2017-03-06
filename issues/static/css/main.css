@@ -14,18 +14,16 @@
     height: auto
     display: inline-block;
     padding: 0;
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
 }
 #menuboxdetail {
     width:100%;
     height:3px;
-    background-color:#ff5d72;
+    background-color:#4eb0e5;
     padding: 0 1cm 0 1cm;
 }
 #menucontent {
     width:100%;
     background-color:#f1f1f1;
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
 }
 .menuitem {
     min-height:60px;
@@ -38,15 +36,15 @@
 }
 .menuitem:hover {
     background: #f6f6f6;
-    border-top: 5px solid #ff5d72;
+    border-top: 5px solid #4eb0e5;
     border-right: 1px solid #dedede;
     border-bottom: 1px solid #dedede;
     border-left: 1px solid #dedede;
     box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
 }
 .menuitem:active {
-    background: #ff5d72;
-    border-top: 5px solid #ff5d72;
+    background: #4eb0e5;
+    border-top: 5px solid #4eb0e5;
     border-right: 1px solid #dedede;
     border-bottom: 1px solid #dedede;
     border-left: 1px solid #dedede;
@@ -62,12 +60,11 @@
 #searchboxdetail {
     width:100%;
     height:1px;
-    background-color:#ff5d72;
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+    background-color:#4eb0e5;
 }
 #searchboxcontent {
     width:100%;
-    color:#ff5d72;
+    color:#4eb0e5;
     box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
 }
 
@@ -86,7 +83,7 @@
 .issueboxdetail {
     width:100%;
     height:2px;
-    background-color:#ff5d72;
+    background-color:#4eb0e5;
 }
 .issueboxhead {
     color:#454545;
@@ -110,7 +107,7 @@
 }
 .issueboxfooter {
     width:100%;
-    color:#ff5d72;
+    color:#4eb0e5;
     background-color:#eaeaea;
     padding:.3cm .5cm .3cm .5cm;
     text-align: center;
@@ -130,7 +127,7 @@
 .projectboxdetail{
     width:100%;
     height:2px;
-    background-color:#ff5d72;
+    background-color:#4eb0e5;
 }
 .projectboxhead{
     color:#454545;
@@ -154,7 +151,7 @@
 }
 .projectboxfooter{
     width:100%;
-    color:#ff5d72;
+    color:#4eb0e5;
     background-color:#eaeaea;
     padding:.3cm .5cm .3cm .5cm;
     text-align: center;
