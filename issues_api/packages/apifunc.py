@@ -129,8 +129,6 @@ def get_project_by_id(session, id):
     project_columns = Project.__table__.columns.keys()
 
     test = make_dict((project,))
-    print('--------------')
-    print(test)
 
     result = []
     # TODO: Make better.
@@ -195,6 +193,7 @@ def post_project(session, **kwarg):
 
 
 def patch_project(session, **kwarg):
+
     project = session.query(Project).get(kwarg['id'])
     if 'name' in kwarg:
         project.name = kwarg['name']
@@ -224,6 +223,16 @@ def patch_project(session, **kwarg):
             project.archived = 0
         else:
             project.archived = 1
+
+    elif 'leads' in kwarg:
+        if isinstance(kwarg['leads'], str):
+
+            user = session.query(User).get(int(kwarg['leads']))
+            project.leads.append(user)
+
+        elif isinstance(kwarg['leads'], list):
+            # process is lit is passed
+            pass
 
 
     session.commit()
@@ -361,4 +370,55 @@ def patch_issue(session, **kwarg):
 
 
 def delete_issue():
+    pass
+
+
+# user functions
+def get_user(session):
+    """Returns all issue objects"""
+    users = []
+    for user in session.query(User).all():
+        if user == None:
+            users = []
+        else:
+            users.append(user)
+
+    return users
+
+
+def get_user_by_id(session, id):
+    user = session.query(User).get(int(id))
+    user_columns = User.__table__.columns.keys()
+
+    result = []
+    # TODO: Make better.
+
+
+
+    return result
+
+
+def post_user(session, **kwarg):
+    query = {}
+    for x in kwarg:
+        if x == 'name':
+            query[x] = kwarg[x]
+        elif x == 'role':
+            query[x] = kwarg[x]
+
+    if 'name' not in query:
+        query['name'] = 'No name given'
+    elif 'role' not in query:
+        query['role'] = 'No role given'
+
+    new_user = User(name=query['name'], role=query['role'])
+    session.add(new_user)
+    session.commit()
+
+
+def patch_user():
+    pass
+
+
+def delete_user():
     pass

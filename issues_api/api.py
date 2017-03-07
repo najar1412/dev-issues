@@ -6,7 +6,7 @@ import config.cred as cred
 from packages.apifunc import (
     __reset_db, get_project_by_id, get_project, post_project, post_issue,
     get_issue, delete_project, delete_issue, get_issue_by_id, patch_project,
-    patch_issue
+    patch_issue, get_user, post_user, make_dict, get_user_by_id
 )
 
 # TODO: get flask to check if database exists etc - on start up.
@@ -223,14 +223,13 @@ def project():
                     'project_code': project.project_code,
                     'project_iter': project.project_iter,
                     'issues': str(project.issues),
+                    'leads': str(project.leads),
                     'archived': project.archived,
                     'client': project.client
                 }
             )
 
         session.close()
-
-        print(result)
 
         # TODO: IMP getting of project
         return make_response(
@@ -256,7 +255,7 @@ def project_by_id(id):
 @app.route('{}/project/patch'.format(BASEURL), methods=['PATCH'])
 def pat_project():
     # allowed params
-    # {'name': '', 'issues': 1, 'rem-issues': 1}
+    # {'id': 1, 'name': '', 'issues': 1, 'rem-issues': 1, 'leads': 1}
     if request.method=='PATCH':
 
         data = {}
@@ -267,8 +266,6 @@ def pat_project():
         session = Session()
         issue = patch_project(session, **data)
         session.close()
-
-        print(issue)
 
         # TODO: IMP patching project
         return make_response(
@@ -290,14 +287,20 @@ def delete_project(_id):
             jsonify({'DELETE project': 'successful'})
         ), 200
 
-
-# TODO: Below is seconday
 # user views
 @app.route('{}/user'.format(BASEURL), methods=['GET', 'POST'])
 def user():
+    data = {}
+    # process args to make dict for function
     if request.method=='POST':
+        for x in request.args:
+            data[x] = request.args[x]
+
         # Init session
-        # session = Session()
+        session = Session()
+        new_raw_user = post_user(session, **data)
+
+        session.close()
 
         # TODO: IMP Posting of users
         return make_response(
@@ -306,12 +309,41 @@ def user():
 
     elif request.method=='GET':
         # Init session
-        # session = Session()
+        session = Session()
+        raw_users = get_user(session)
+
+        result = []
+        for user in raw_users:
+
+            # build project dict
+            result.append(
+                {
+                    'id': user.id,
+                    'name': user.name,
+                    'role': user.role,
+                    'lead': str(user.projects)
+                }
+            )
+
+        session.close()
 
         # TODO: IMP getting of user
         return make_response(
-            jsonify({'GET user': 'successful'})
+            jsonify({'GET user': result})
         ), 200
+
+
+@app.route('{}/user/<int:id>'.format(BASEURL), methods=['GET'])
+def user_by_id(id):
+    # TODO: users always return None, fix.
+    # init session
+    session = Session()
+    raw_user = get_user_by_id(session, id)
+    user = make_dict(raw_user)
+
+    return make_response(
+        jsonify({'user': user})
+    ), 200
 
 
 @app.route('{}/user/patch'.format(BASEURL), methods=['PATCH'])
@@ -337,6 +369,9 @@ def delete_user():
             jsonify({'DELETE user': 'successful'})
         ), 200
 
+
+# TODO: Below is seconday
+# user views
 # client views
 @app.route('{}/client'.format(BASEURL), methods=['GET', 'POST'])
 def client():

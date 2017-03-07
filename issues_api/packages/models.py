@@ -23,6 +23,15 @@ project_issue = Table('project_issue', Base.metadata,
 )
 '''
 
+
+"""association tables"""
+# association table: Project.id, User.id, M2M
+project_user = Table('project_user', Base.metadata,
+    Column('project_id', Integer, ForeignKey('project.id')),
+    Column('user_id', Integer, ForeignKey('user.id'))
+)
+
+
 class Project(Base):
     # TODO: IMP start date, deadlines etc.
     __tablename__ = 'project'
@@ -35,6 +44,7 @@ class Project(Base):
     client = Column(String, default='test')
     # relational data
     issues = relationship('Issue')
+    leads = relationship('User', secondary=project_user, back_populates="projects")
 
     def __repr__(self):
         return "<Project(id='%s', name='%s', client'%s'>" % (
@@ -68,6 +78,8 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     role = Column(String)
+    # relational data
+    projects = relationship("Project", secondary=project_user, back_populates="leads")
 
     def __repr__(self):
         return "<User(id='%s', name='%s')>" % (

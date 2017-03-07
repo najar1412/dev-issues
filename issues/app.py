@@ -221,8 +221,25 @@ def query():
 
 # Seconary wants
 @app.route('/user', methods=['GET'])
+def users():
+
+    r = requests.get('{}/user'.format(BASEURL))
+    try:
+        if r.json()['GET user']['Message'] == 'No projects in table':
+            return render_template('projects.html', projects='false')
+    except TypeError:
+        pass
+
+    return render_template('users.html', user=r.json()['GET user'])
+
+
+@app.route('/user')
 def get_user():
-    return render_template('user.html')
+    user_id = request.args.get('id')
+
+    r = requests.get('{}/user/{}'.format(BASEURL, user_id))
+
+    return render_template('user.html', user=r.json())
 
 
 if __name__ == '__main__':
