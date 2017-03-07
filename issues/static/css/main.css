@@ -1,3 +1,15 @@
+.masonry-layout {
+  column-count: 3;
+  column-gap: 0;
+}
+.masonry-layout-panel {
+  break-inside: avoid;
+  padding: 2px;
+}
+.masonry-layout-panel__content {
+  padding: 0;
+  border-radius: 0;
+}
 .menutext a:active {
   text-decoration: none;
 }
@@ -77,6 +89,12 @@
 .issuebox {
     width:32.8%;display:
     inline-block;
+    vertical-align: top;
+    padding-bottom: .3cm;
+}
+.issueboxy {
+    width:100%;
+    display: inline-block;
     vertical-align: top;
     padding-bottom: .3cm;
 }

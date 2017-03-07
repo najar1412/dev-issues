@@ -2,40 +2,61 @@
 {% block content %}
 
 {% if issue == 'false' %}
-No issues in database.
+    No issues in database.
 {% else %}
-<h3 style="padding:0;margin:0;">Issues</h3>
-<small>filters >>> <a href='#'><span style='color:red;'>project</span> - deadline - newest</a></small><br>
-<br>
+    <h3 style="padding:0;margin:0;">Issues</h3>
+    <small>filters >>> <a href='#'><span style='color:red;'>project</span> - deadline - newest</a></small><br>
+    <br>
 
-{% for x in issue %}
-{% if x.issue_complete == 0 %}
 
-<div class=issuebox>
-    <div class=issueboxdetail></div>
-        <div class=issueboxhead>
-            <a href="{{ url_for('get_issue', id=x.id ) }}"><h4>Issue #{{ x.id }}</h4></a>
-        </div>
-    <div class=issueboxcontent>
-        {{ x.issue_data }}
-        <hr>
-        <h6>
-            Project: <a href="{{ url_for('get_project', id=x.project_id ) }}">{{ x.project_id }}</a><br>
-            Deadline: [IMP]<br>
-        </h6>
-    </div>
-    <div class=issueboxfooter>
-        <a href="{{ url_for('patch_issue', id=x.id, signoff=1 ) }}">Close Issue</a>
-    </div>
+        <div class=masonry-layout>
+
+
+
+    {% for x in issue %}
+    {% if x.issue_complete == 0 %}
+
+                    <div class=masonry-layout-panel>
+                        <div class=masonry-layout-panel__content>
+
+                            <div class=issueboxy>
+                                <div class=issueboxdetail></div>
+                                    <div class=issueboxhead>
+                                        <a href="{{ url_for('get_issue', id=x.id ) }}"><h4>Issue #{{ x.id }}</h4></a>
+                                    </div>
+                                <div class=issueboxcontent>
+                                    {{ x.issue_data }}
+                                    <hr>
+                                    <h6>
+                                        Project: <a href="{{ url_for('get_project', id=x.project_id ) }}">{{ x.project_id }}</a><br>
+                                        Deadline: [IMP]<br>
+                                    </h6>
+                                </div>
+                                <div class=issueboxfooter>
+                                    <a href="{{ url_for('patch_issue', id=x.id, signoff=1 ) }}">Close Issue</a>
+                                </div>
+                            </div>
+
+
+</div>
+</div>
+    {% endif %}
+    {% endfor %}
+
 </div>
 
-{% else %}
+
+
+
+
 {% endif %}
 
 
 
-{% endfor %}
-{% endif %}
+
+
+
+
 
 
 <hr>
@@ -91,5 +112,7 @@ No issues in database.
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+
 
 {% endblock %}
